@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import type { UsersRepository } from "../../repositories/users-repository";
 import { Either, makeLeft, makeRight } from "src/core/either/either";
 import { User } from "src/domain/management/enterprise/entities/user";
+import { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
 import type { HashGenerator } from "../../cryptography/hash-generator";
-import type { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
+import type { UsersRepository } from "../../repositories/users-repository";
 
 
 interface RegisterUserUseCaseRequest {
@@ -33,7 +33,7 @@ export class RegisterUserUseCase{
     const emailExists = await this.usersRepository.findByEmail(email);
 
     if(emailExists) {
-      return makeLeft(new EmailAlreadyExists())
+      return makeLeft(new EmailAlreadyExistsError())
     }
 
     const hashedPassword = await this.hashGenerator.hash(password);

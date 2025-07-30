@@ -1,4 +1,4 @@
-class WrongCredentialsError extends Error {
+export class WrongCredentialsError extends Error {
   constructor(){
     super("Wrong credentials provided");
   }

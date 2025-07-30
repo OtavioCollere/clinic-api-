@@ -1,10 +1,10 @@
 import { beforeAll, describe, it } from "vitest";
-import { RegisterUserUseCase } from "./register-user";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
 import { MakeUser } from "test/factories/make-user";
 import { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
+import { RegisterUserUseCase } from "../users/register-user";
 
 describe("Register user use case", () => {
 
@@ -37,12 +37,15 @@ describe("Register user use case", () => {
 
   it("should not be able to register a user with an existing email", async () => {
     
-    const user = await MakeUser({
+    const user = MakeUser({
       email : 'otavio@email.com'
     })
 
     const result = await sut.execute({
-      email : 'otavio@email.com'
+      name : 'Otavio',
+      email : 'otavio@email.com',
+      password : '1234',
+      sector : 'IT'
     })
 
     expect(isLeft(result)).toBeTruthy();

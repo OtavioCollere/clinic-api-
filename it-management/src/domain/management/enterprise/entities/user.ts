@@ -60,12 +60,12 @@ export class User extends Entity<UserProps>{
     return this.props.createdAt;
   }
 
-  static create(props : Optional<UserProps, 'updatedAt' | 'createdAt'>, id?: string)
+  static create(props : Optional<UserProps, 'updatedAt' | 'createdAt'>, id?: UniqueEntityID)
   {
     const user = new User({
       createdAt : props.updatedAt ?? new Date(),
       ...props
-    }, new UniqueEntityID(id))
+    }, id)
   
     return user
   }
