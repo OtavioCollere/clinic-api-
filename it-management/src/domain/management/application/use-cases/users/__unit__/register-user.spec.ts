@@ -1,10 +1,10 @@
-import { beforeAll, describe, it } from "vitest";
+import { beforeEach, describe, it } from "vitest";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
 import { MakeUser } from "test/factories/make-user";
 import { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
-import { RegisterUserUseCase } from "../users/register-user";
+import { RegisterUserUseCase } from "../register-user";
 
 describe("Register user use case", () => {
 
@@ -12,7 +12,7 @@ describe("Register user use case", () => {
   let inMemoryUsersRepository : InMemoryUsersRepository
   let fakeHasher : FakeHasher
 
-  beforeAll(() => {
+  beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
     fakeHasher = new FakeHasher();
     sut = new RegisterUserUseCase(inMemoryUsersRepository, fakeHasher)
@@ -40,6 +40,7 @@ describe("Register user use case", () => {
     const user = MakeUser({
       email : 'otavio@email.com'
     })
+    await inMemoryUsersRepository.items.push(user);
 
     const result = await sut.execute({
       name : 'Otavio',

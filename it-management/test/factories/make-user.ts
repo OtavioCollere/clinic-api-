@@ -1,4 +1,5 @@
-import { faker } from "@faker-js/faker/.";
+import { faker } from "@faker-js/faker";
+import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 import { User, type UserProps } from "src/domain/management/enterprise/entities/user";
 
 export function MakeUser(override : Partial<UserProps>, id? : string) {
@@ -8,7 +9,7 @@ export function MakeUser(override : Partial<UserProps>, id? : string) {
     sector: faker.commerce.department(),
     password: faker.internet.password(),
     ...override
-  }, id)
+  }, new UniqueEntityID(id))
 
   return user
 }
