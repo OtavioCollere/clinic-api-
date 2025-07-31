@@ -1,13 +1,11 @@
-import { beforeAll, describe, it } from "vitest";
+import { beforeEach, describe, it } from "vitest";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
 import { MakeUser } from "test/factories/make-user";
-import { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
-import { RegisterUserUseCase } from "../users/register-user";
-import { AuthenticatheUserUseCase } from "../users/authenticate-user";
 import { FakeEncrypter } from "test/cryptography/fake-encrypter";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
+import { AuthenticatheUserUseCase } from "../authenticate-user";
 
 describe("Register user use case", () => {
 
@@ -16,7 +14,7 @@ describe("Register user use case", () => {
   let fakeHasher : FakeHasher
   let fakeEncrypter : FakeEncrypter
 
-  beforeAll(() => {
+  beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
     fakeHasher = new FakeHasher();
     fakeEncrypter = new FakeEncrypter();
@@ -27,10 +25,10 @@ describe("Register user use case", () => {
     
     const user = MakeUser({
       email : "otavio@email.com",
-      password : '1234'
+      password : await fakeHasher.hash('1234')
     })
 
-    await inMemoryUsersRepository.create(user);
+    await inMemoryUsersRepository.items.push(user);
     
     const result = await sut.execute({
       email : "otavio@email.com",
@@ -39,7 +37,7 @@ describe("Register user use case", () => {
 
     expect(isRight(result)).toBeTruthy();
     if(isRight(result)){
-      expect(unwrapEither(result).accessToken).toBe(String)
+      expect(unwrapEither(result).accessToken).toBeDefined()
     }
 
   })
@@ -51,6 +49,8 @@ describe("Register user use case", () => {
       password : '1234'
     })
 
+    console.log(result);
+    
     expect(isLeft(result)).toBeTruthy();
     expect(unwrapEither(result)).toBeInstanceOf(WrongCredentialsError)
 
