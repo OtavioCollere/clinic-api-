@@ -1,4 +1,9 @@
 import { Module } from "@nestjs/common";
+import { CryptographyModule } from "../cryptography/cryptograph.module";
+import { RegisterUserUseCase } from "src/domain/management/application/use-cases/users/register-user";
+import { AuthenticatheUserUseCase } from "src/domain/management/application/use-cases/users/authenticate-user";
+import { AuthModule } from "../auth/auth.module";
+import { DatabaseModule } from "../database/database.module";
 
 
 // Importar modulo em app module
@@ -7,5 +12,14 @@ import { Module } from "@nestjs/common";
 
 // Http module precisa importar DatabaseModule, Cryptograph module
 
-@Module({})
+@Module({
+  imports : [CryptographyModule, AuthModule, DatabaseModule],
+  controllers : [
+    
+  ],
+  providers : [
+    RegisterUserUseCase,
+    // AuthenticatheUserUseCase
+  ]
+})
 export class HttpModule{}

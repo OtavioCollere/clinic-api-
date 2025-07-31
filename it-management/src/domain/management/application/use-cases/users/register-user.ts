@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { Either, makeLeft, makeRight } from "src/core/either/either";
 import { User } from "src/domain/management/enterprise/entities/user";
 import { EmailAlreadyExistsError } from "src/core/errors/email-already-exists-error";
-import type { HashGenerator } from "../../cryptography/hash-generator";
-import type { UsersRepository } from "../../repositories/users-repository";
+import { HashGenerator } from "../../cryptography/hash-generator";
+import { UsersRepository } from "../../repositories/users-repository";
 
 
 interface RegisterUserUseCaseRequest {

@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker/.";
+import { faker } from "@faker-js/faker";
 import { User, type UserProps } from "src/domain/management/enterprise/entities/user";
 
 export function MakeUser(override : Partial<UserProps>, id? : string) {
