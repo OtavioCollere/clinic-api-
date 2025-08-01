@@ -1,5 +1,57 @@
 https://app.rocketseat.com.br/classroom/nest-js/group/desacoplando-camadas-no-nest-js/lesson/rotas-privadas-por-padrao
 
+
+Appontamentos
+# Casos de Uso - Appointment
+
+## 1. Criar agendamento
+- Duração deve ser múltiplo de 30 minutos.
+- Data não pode estar no passado.
+- Status inicial: `PENDING`.
+
+## 2. Confirmar agendamento
+- Só permitido se o status atual for `PENDING`.
+- Registrar `updatedBy` e `updatedAt`.
+
+## 3. Cancelar agendamento
+- Não cancelar se já estiver `CANCELED`.
+- Registrar `updatedBy` e `updatedAt`.
+
+## 4. Reagendar
+- Não permitido se status for `CANCELED`.
+- Nova data não pode estar no passado.
+- Atualizar `updatedBy` e `updatedAt`.
+
+## 5. Listar agendamentos por usuário
+- Filtrar por `userId`.
+- Possível opção para ocultar agendamentos com status `CANCELED`.
+
+## 6. Validar conflitos de horário
+- Impedir agendamentos sobrepostos para o mesmo usuário.
+- Apenas `PENDING` pode coexistir até confirmação.
+
+## 7. Atualizar descrição ou detalhes
+- Permitido apenas para status `PENDING` ou `CONFIRMED`.
+- Registrar `updatedBy`.
+
+## 8. Auditar histórico de atualizações *(opcional, mas recomendado)*
+- Log de mudanças de status.
+- Registro de quem fez cada alteração.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ✅ Checklist de Setup NestJS com DDD + Prisma + JWT
 
 - [ ] Iniciar projeto Nest (`nest new`)

@@ -1,14 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "clinic"."user";
-
 -- CreateTable
-CREATE TABLE "clinic"."User" (
+CREATE TABLE "public"."User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -21,4 +12,4 @@ CREATE TABLE "clinic"."User" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "clinic"."User"("email");
+CREATE UNIQUE INDEX "User_email_key" ON "public"."User"("email");
