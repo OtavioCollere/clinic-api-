@@ -1,3 +1,5 @@
+https://app.rocketseat.com.br/classroom/nest-js/group/desacoplando-camadas-no-nest-js/lesson/rotas-privadas-por-padrao
+
 # ✅ Checklist de Setup NestJS com DDD + Prisma + JWT
 
 - [ ] Iniciar projeto Nest (`nest new`)

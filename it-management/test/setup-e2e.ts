@@ -1,6 +1,7 @@
+import { PrismaClient } from "@prisma/client";
 import { execSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { after } from "node:test";
+import { beforeAll, afterAll } from "vitest";
 
 const prisma = new PrismaClient();
 
@@ -22,10 +23,10 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL;
 
-  execSync('pnpm prisma migrate deploy')
+  execSync('pnpm prisma migrate reset --force')
 })
 
 afterAll(async () => {
-  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`);
-  await prisma.$disconnect();
+  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
+  await prisma.$disconnect()
 })

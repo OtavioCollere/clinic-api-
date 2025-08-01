@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { makeLeft, makeRight, type Either } from "src/core/either/either";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
-import type { UsersRepository } from "../../repositories/users-repository";
-import type { HashComparer } from "../../cryptography/hash-comparer";
-import type { Encrypter } from "../../cryptography/encrypter";
+import { UsersRepository } from "../../repositories/users-repository";
+import { HashComparer } from "../../cryptography/hash-comparer";
+import { Encrypter } from "../../cryptography/encrypter";
 
 export class AuthenticatheUserUseCaseRequest{
   email : string

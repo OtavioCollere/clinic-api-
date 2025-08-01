@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from "vitest";
+import { expect, beforeEach, describe, it } from "vitest";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
@@ -49,8 +49,6 @@ describe("Register user use case", () => {
       password : '1234'
     })
 
-    console.log(result);
-    
     expect(isLeft(result)).toBeTruthy();
     expect(unwrapEither(result)).toBeInstanceOf(WrongCredentialsError)
 

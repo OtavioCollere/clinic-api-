@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from "vitest";
+import { expect, beforeEach, describe, it } from "vitest";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
