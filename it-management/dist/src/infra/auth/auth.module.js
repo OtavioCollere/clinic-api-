@@ -13,7 +13,8 @@ const core_1 = require("@nestjs/core");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
-const config_1 = require("@nestjs/config");
+const env_module_1 = require("../env/env.module");
+const env_service_1 = require("../env/env.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -23,11 +24,11 @@ exports.AuthModule = AuthModule = __decorate([
             passport_1.PassportModule,
             jwt_1.JwtModule.registerAsync({
                 global: true,
-                imports: [config_1.ConfigModule],
-                inject: [config_1.ConfigService],
-                async useFactory(config) {
-                    const publicKey = config.get('PUBLIC_KEY', { infer: true });
-                    const privateKey = config.get('PRIVATE_KEY', { infer: true });
+                imports: [env_module_1.EnvModule],
+                inject: [env_service_1.EnvService],
+                useFactory(env) {
+                    const publicKey = env.get('PUBLIC_KEY');
+                    const privateKey = env.get('PRIVATE_KEY');
                     return {
                         signOptions: { algorithm: 'RS256' },
                         privateKey: Buffer.from(privateKey, 'base64'),
@@ -38,6 +39,7 @@ exports.AuthModule = AuthModule = __decorate([
         ],
         providers: [
             jwt_strategy_1.JwtStrategy,
+            env_service_1.EnvService,
             { provide: core_1.APP_GUARD, useClass: jwt_auth_guard_1.JwtAuthGuard }
         ],
     })

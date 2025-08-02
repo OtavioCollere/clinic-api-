@@ -35,7 +35,7 @@ let AuthenticatheUserUseCase = class AuthenticatheUserUseCase {
             return (0, either_1.makeLeft)(new wrong_credentials_error_1.WrongCredentialsError());
         }
         const accessToken = await this.encrypter.encrypt({
-            sub: user.id
+            sub: user.id.toString()
         });
         return (0, either_1.makeRight)({
             accessToken

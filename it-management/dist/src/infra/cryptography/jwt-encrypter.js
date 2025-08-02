@@ -17,9 +17,7 @@ let JwtEncrypter = class JwtEncrypter {
         this.jwtService = jwtService;
     }
     async encrypt(payload) {
-        return this.jwtService.signAsync({
-            payload
-        });
+        return this.jwtService.signAsync(payload);
     }
 };
 exports.JwtEncrypter = JwtEncrypter;

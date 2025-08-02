@@ -1,11 +1,13 @@
 import { Entity } from "src/core/entities/entity"
+import type { UniqueEntityID } from "src/core/entities/unique-entity-id"
+import type { Optional } from "src/core/types/optional"
 
 export interface AppointmentProps{
-  userId : string
+  userId : UniqueEntityID
   name : string
   description? : string
   duration : number // somente de 30 em 30 min
-  status : 'PENDING' | 'CONFIRMED' | 'CANCELED';
+  status? : 'PENDING' | 'CONFIRMED' | 'CANCELED';
   dateHour : Date;
   updatedBy? : string
   createdAt? : Date
@@ -13,13 +15,19 @@ export interface AppointmentProps{
 }
 
 export class Appointment extends Entity<AppointmentProps> {
-  get userId(): string {
-    return this.props.userId;
+
+  static create(props : Optional<AppointmentProps, 'description' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'status'>, id? : UniqueEntityID) {
+    const appointment = new Appointment({
+      status : 'PENDING',
+      createdAt : props.createdAt ?? new Date(),
+      ...props
+    }, id)
+
+    return appointment
   }
 
-  set userId(value: string) {
-    this.props.userId = value;
-    this.touch();
+  get userId() {
+    return this.props.userId.toString()
   }
 
   get name(): string {

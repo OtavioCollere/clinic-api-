@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './infra/env/env';
 import { HttpModule } from './infra/http/http.module';
+import { EnvModule } from './infra/env/env.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { HttpModule } from './infra/http/http.module';
       validate : (env) => envSchema.parse(env),
       isGlobal : true
     }),
-    HttpModule
+    HttpModule,
+    EnvModule
   ],
   controllers: [AppController],
   providers: [

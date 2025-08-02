@@ -12,9 +12,11 @@ const cryptograph_module_1 = require("../cryptography/cryptograph.module");
 const register_user_1 = require("../../domain/management/application/use-cases/users/register-user");
 const auth_module_1 = require("../auth/auth.module");
 const database_module_1 = require("../database/database.module");
-const register_user_2 = require("./controllers/register-user");
+const register_user_2 = require("./controllers/users/register-user");
 const authenticate_user_1 = require("../../domain/management/application/use-cases/users/authenticate-user");
-const authenticate_user_2 = require("./controllers/authenticate-user");
+const authenticate_user_2 = require("./controllers/users/authenticate-user");
+const create_appointment_1 = require("./controllers/appointments/create-appointment");
+const create_appointment_2 = require("../../domain/management/application/use-cases/appointments/create-appointment");
 let HttpModule = class HttpModule {
 };
 exports.HttpModule = HttpModule;
@@ -23,11 +25,13 @@ exports.HttpModule = HttpModule = __decorate([
         imports: [cryptograph_module_1.CryptographyModule, auth_module_1.AuthModule, database_module_1.DatabaseModule],
         controllers: [
             register_user_2.RegisterUserController,
-            authenticate_user_2.AuthenticateController
+            authenticate_user_2.AuthenticateController,
+            create_appointment_1.CreateAppointmentController
         ],
         providers: [
             register_user_1.RegisterUserUseCase,
-            authenticate_user_1.AuthenticatheUserUseCase
+            authenticate_user_1.AuthenticatheUserUseCase,
+            create_appointment_2.CreateAppointmentUseCase
         ]
     })
 ], HttpModule);

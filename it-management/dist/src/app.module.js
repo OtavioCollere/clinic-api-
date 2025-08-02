@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const env_1 = require("./infra/env/env");
 const http_module_1 = require("./infra/http/http.module");
+const env_module_1 = require("./infra/env/env.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -23,7 +24,8 @@ exports.AppModule = AppModule = __decorate([
                 validate: (env) => env_1.envSchema.parse(env),
                 isGlobal: true
             }),
-            http_module_1.HttpModule
+            http_module_1.HttpModule,
+            env_module_1.EnvModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

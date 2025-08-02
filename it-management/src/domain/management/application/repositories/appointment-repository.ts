@@ -1,8 +1,9 @@
-import type { Appointment } from "../../enterprise/entities/appointment";
+import { Appointment } from "../../enterprise/entities/appointment";
 
 export abstract class AppointmentsRepository{
   abstract create(appointment: Appointment): Promise<Appointment>;
   abstract findById(id: string): Promise<Appointment | null>;
   abstract findByUserId(userId: string): Promise<Appointment[]>;
   abstract findByDateHour(dateHour: Date): Promise<Appointment | null>;
+  abstract findByInterval({startHour, endHour}: {startHour: Date, endHour: Date}): Promise<Appointment | null>;
 }

@@ -1,6 +1,6 @@
 https://app.rocketseat.com.br/classroom/nest-js/group/desacoplando-camadas-no-nest-js/lesson/rotas-privadas-por-padrao
 
-
+![alt text](image.png)
 Appontamentos
 # Casos de Uso - Appointment
 

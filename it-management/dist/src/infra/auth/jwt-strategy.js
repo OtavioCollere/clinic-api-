@@ -14,12 +14,13 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
 const zod_1 = require("zod");
+const env_service_1 = require("../env/env.service");
 const tokenPayloadSchema = zod_1.default.object({
     sub: zod_1.default.string().uuid(),
 });
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
-    constructor() {
-        const publicKey = 'base64';
+    constructor(config) {
+        const publicKey = config.get('PUBLIC_KEY');
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: Buffer.from(publicKey, 'base64'),
@@ -33,6 +34,6 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
 exports.JwtStrategy = JwtStrategy;
 exports.JwtStrategy = JwtStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [env_service_1.EnvService])
 ], JwtStrategy);
 //# sourceMappingURL=jwt-strategy.js.map
