@@ -26,6 +26,10 @@ export class Appointment extends Entity<AppointmentProps> {
     return appointment
   }
 
+  public isPendingStatus() : boolean {
+    return this.props.status === 'PENDING';
+  }
+
   get userId() {
     return this.props.userId.toString()
   }

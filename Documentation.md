@@ -2,6 +2,11 @@ https://app.rocketseat.com.br/classroom/nest-js/group/desacoplando-camadas-no-ne
 
 ![alt text](image.png)
 Appontamentos
+[] - criação
+[] - edicao ( reagendar )
+[] - listagem ( searchQuery )
+[] - confirmar agendamento
+[] - cancelar agendamento
 # Casos de Uso - Appointment
 
 ## 1. Criar agendamento

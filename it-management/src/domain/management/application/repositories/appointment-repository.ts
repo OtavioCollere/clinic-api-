@@ -6,4 +6,7 @@ export abstract class AppointmentsRepository{
   abstract findByUserId(userId: string): Promise<Appointment[]>;
   abstract findByDateHour(dateHour: Date): Promise<Appointment | null>;
   abstract findByInterval({startHour, endHour}: {startHour: Date, endHour: Date}): Promise<Appointment | null>;
+
+  // Verifica se o status é PENDING
+  abstract isPendingStatus(id : string) : Promise<boolean>
 }
