@@ -1,5 +1,5 @@
 import { Entity } from "src/core/entities/entity"
-import type { UniqueEntityID } from "src/core/entities/unique-entity-id"
+import { UniqueEntityID } from "src/core/entities/unique-entity-id"
 import type { Optional } from "src/core/types/optional"
 
 export interface AppointmentProps{
@@ -31,7 +31,12 @@ export class Appointment extends Entity<AppointmentProps> {
   }
 
   get userId() {
-    return this.props.userId.toString()
+    return this.props.userId
+  }
+
+  set userId(value : UniqueEntityID) {
+    this.props.userId = value;
+    this.touch();
   }
 
   get name(): string {

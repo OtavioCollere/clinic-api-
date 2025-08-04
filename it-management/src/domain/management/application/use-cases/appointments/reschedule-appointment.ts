@@ -7,17 +7,19 @@ import { makeLeft, makeRight, type Either } from "src/core/either/either";
 import { Appointment } from "src/domain/management/enterprise/entities/appointment";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { InvalidIntervalError } from "src/core/errors/invalid-interval-error";
-import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 import { StatusIsNotPedingError } from "src/core/errors/status-is-not-peding-error";
 import { EditorUserFoundError } from "src/core/errors/editor-user-not-found-error";
 import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { InvalidDateError } from "src/core/errors/invalid-date-error";
+import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 
 // Documentar endpoint depois
 /* 
   - vai reagendar a data, e se quiser vai editar os dados tbm
+
 */
 
-interface RescheduleAppointmentRequest {
+interface RescheduleAppointmentUseCaseRequest {
   appointmentId : string
   editedBy : string // id de quem está editando
   userId : string // id do usuario que vai ser atendido
@@ -27,7 +29,7 @@ interface RescheduleAppointmentRequest {
   dateHour: Date
 }
 
-type RescheduleAppointmentResponse = Either<
+type RescheduleAppointmentUseCaseResponse = Either<
 UserNotFoundError | InvalidIntervalError, 
 {
   appointment : Appointment
@@ -35,7 +37,7 @@ UserNotFoundError | InvalidIntervalError,
 >
 
 @Injectable()
-export class RescheduleAppointment{
+export class RescheduleAppointmentUseCase{
 
   constructor(
     private appointmentsRepository: AppointmentsRepository,
@@ -43,7 +45,7 @@ export class RescheduleAppointment{
   ) {}
 
 
-  async execute({appointmentId, editedBy, userId, name, description, duration, dateHour} : RescheduleAppointmentRequest) : Promise<RescheduleAppointmentResponse> {
+  async execute({appointmentId, editedBy, userId, name, description, duration, dateHour} : RescheduleAppointmentUseCaseRequest) : Promise<RescheduleAppointmentUseCaseResponse> {
 
     // primeiro verificar se o agendamento existe
     const appointment = await this.appointmentsRepository.findById(appointmentId)
@@ -75,7 +77,7 @@ export class RescheduleAppointment{
 
     // verificar data/hora não é invalida
     if (dateHour < new Date()) {
-      return makeLeft(new (fazer erro));
+      return makeLeft(new InvalidDateError());
     }
 
     // verificar se o intervalo de hora é valido
@@ -88,10 +90,24 @@ export class RescheduleAppointment{
       return makeLeft(new InvalidIntervalError({existentAppointment, startHour, endHour}))
     }
 
-    if (userId) 
+    if (userId) {
+      const user = this.usersRepository.findById(userId);
 
-    // const rescheduledAppointment;
+      if(!user) {
+        return makeLeft(new UserNotFoundError())
+      }
 
+      appointment.userId = new UniqueEntityID(userId);
+      appointment.name = name
+      appointment.description = description;
+      appointment.duration = duration;
+      appointment.dateHour = dateHour;
+
+      await this.appointmentsRepository.save(appointment);
+
+      return makeRight({
+        appointment
+      })
   }
 
-}
+}}

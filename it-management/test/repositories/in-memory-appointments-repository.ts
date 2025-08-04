@@ -2,6 +2,10 @@ import type { AppointmentsRepository } from "src/domain/management/application/r
 import type { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
 export class InMemoryAppointmentsRepository implements AppointmentsRepository{
+  isPendingStatus(id: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+
   public items : Appointment[] = []
 
   async create(appointment: Appointment): Promise<Appointment> {
@@ -19,13 +23,21 @@ export class InMemoryAppointmentsRepository implements AppointmentsRepository{
   }
 
   async findByUserId(userId: string): Promise<Appointment[]> {
-    const appointment = this.items.filter((item) => item.userId === userId)
+    const appointment = this.items.filter((item) => item.userId.toString() === userId)
 
     return appointment
   }
 
   async findByDateHour(dateHour: Date): Promise<Appointment | null> {
     throw Error();
+  }
+
+  async save(appointment: Appointment): Promise<Appointment> {
+    const index = this.items.findIndex(u => u.id.toString() === appointment.id.toString());
+    if (index !== -1) {
+      this.items[index] = appointment;
+    }
+    return appointment;
   }
 
   async findByInterval({ startHour, endHour }: { startHour: Date; endHour: Date; }): Promise<Appointment | null> {
