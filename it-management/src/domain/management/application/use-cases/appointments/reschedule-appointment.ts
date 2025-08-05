@@ -90,6 +90,7 @@ export class RescheduleAppointmentUseCase{
       return makeLeft(new InvalidIntervalError({existentAppointment, startHour, endHour}))
     }
 
+  
     if (userId) {
       const user = this.usersRepository.findById(userId);
 
@@ -98,17 +99,20 @@ export class RescheduleAppointmentUseCase{
       }
 
       appointment.userId = new UniqueEntityID(userId);
-      appointment.name = name
-      appointment.description = description;
-      appointment.duration = duration;
-      appointment.dateHour = dateHour;
-      appointment.updatedBy = updatedBy;
 
-      await this.appointmentsRepository.save(appointment);
+    }
 
-      return makeRight({
-        appointment
-      })
-  }
+    appointment.name = name
+    appointment.description = description;
+    appointment.duration = duration;
+    appointment.dateHour = dateHour;
+    appointment.updatedBy = updatedBy;
+    
+    await this.appointmentsRepository.save(appointment);
+    
+    return makeRight({
+      appointment
+    })
+
 
 }}

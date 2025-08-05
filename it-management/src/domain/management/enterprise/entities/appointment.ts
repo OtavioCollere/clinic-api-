@@ -30,9 +30,18 @@ export class Appointment extends Entity<AppointmentProps> {
     return this.props.status === 'PENDING';
   }
 
+  confirmAppointment() {
+    this.props.status = 'CONFIRMED';
+  }
+
+  cancelAppointment() {
+    this.props.status = 'CANCELED';
+  }
+
   get userId() {
     return this.props.userId
   }
+
 
   set userId(value : UniqueEntityID) {
     this.props.userId = value;
