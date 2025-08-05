@@ -66,14 +66,14 @@ describe("Create appointment use case unit tests", () => {
     inMemoryUsersRepository.items.push(user)
 
     inMemoryAppointmentsRepository.items.push(MakeAppointment({
-      dateHour : new Date()
+      dateHour : new Date('2025-12-12T10:00:00')
     }))
 
     const result = await sut.execute({
       userId : user.id.toString(),
       name : 'Retorno Botox',
       duration : 60, // 60 minutos,
-      dateHour : new Date(),
+      dateHour : new Date('2025-12-12T10:00:00'),
       description : 'Paciente retornando após 15 dias'
     })
 

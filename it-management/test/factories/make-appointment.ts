@@ -3,10 +3,12 @@ import { Appointment, type AppointmentProps } from "src/domain/management/enterp
 
 export function MakeAppointment(override : Partial<AppointmentProps>, id? : string) {
   const appointment = Appointment.create({
+    userId : new UniqueEntityID(),
     name : 'Agendamento 1',
     dateHour : new Date(),
     duration : 60,
-    userId : new UniqueEntityID(),
+    status : 'PENDING',
+    description : 'none',
     ...override
   }, new UniqueEntityID(id))
 
