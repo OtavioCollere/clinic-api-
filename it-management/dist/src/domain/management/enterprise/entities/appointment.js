@@ -11,8 +11,21 @@ class Appointment extends entity_1.Entity {
         }, id);
         return appointment;
     }
+    isPendingStatus() {
+        return this.props.status === 'PENDING';
+    }
+    confirmAppointment() {
+        this.props.status = 'CONFIRMED';
+    }
+    cancelAppointment() {
+        this.props.status = 'CANCELED';
+    }
     get userId() {
-        return this.props.userId.toString();
+        return this.props.userId;
+    }
+    set userId(value) {
+        this.props.userId = value;
+        this.touch();
     }
     get name() {
         return this.props.name;

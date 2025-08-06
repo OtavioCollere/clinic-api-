@@ -1,6 +1,9 @@
 https://app.rocketseat.com.br/classroom/nest-js/group/desacoplando-camadas-no-nest-js/lesson/rotas-privadas-por-padrao
 
 ![alt text](image.png)
+[] - controllers
+[] - documentacao com swagger
+
 Appontamentos
 [] - criação
 [] - edicao ( reagendar )

@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import type { AppointmentsRepository } from "../../repositories/appointment-repository";
-import type { UsersRepository } from "../../repositories/users-repository";
+import { AppointmentsRepository } from "../../repositories/appointment-repository";
+import { UsersRepository } from "../../repositories/users-repository";
 import { Either, makeLeft, makeRight } from "src/core/either/either";
 import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
-import type { Appointment } from "src/domain/management/enterprise/entities/appointment";
+import { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
 interface ConfirmAppointmentUseCaseRequest {
   appointmentId: string

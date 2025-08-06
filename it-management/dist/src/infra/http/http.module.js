@@ -17,6 +17,10 @@ const authenticate_user_1 = require("../../domain/management/application/use-cas
 const authenticate_user_2 = require("./controllers/users/authenticate-user");
 const create_appointment_1 = require("./controllers/appointments/create-appointment");
 const create_appointment_2 = require("../../domain/management/application/use-cases/appointments/create-appointment");
+const confirm_appointment_1 = require("./controllers/appointments/confirm-appointment");
+const confirm_appointment_2 = require("../../domain/management/application/use-cases/appointments/confirm-appointment");
+const cancel_appointment_1 = require("./controllers/appointments/cancel-appointment");
+const cancel_appointment_2 = require("../../domain/management/application/use-cases/appointments/cancel-appointment");
 let HttpModule = class HttpModule {
 };
 exports.HttpModule = HttpModule;
@@ -26,12 +30,16 @@ exports.HttpModule = HttpModule = __decorate([
         controllers: [
             register_user_2.RegisterUserController,
             authenticate_user_2.AuthenticateController,
-            create_appointment_1.CreateAppointmentController
+            create_appointment_1.CreateAppointmentController,
+            confirm_appointment_1.ConfirmAppointmentController,
+            cancel_appointment_1.CancelAppointmentController
         ],
         providers: [
             register_user_1.RegisterUserUseCase,
             authenticate_user_1.AuthenticatheUserUseCase,
-            create_appointment_2.CreateAppointmentUseCase
+            create_appointment_2.CreateAppointmentUseCase,
+            confirm_appointment_2.ConfirmAppointmentUseCase,
+            cancel_appointment_2.CancelAppointmentUseCase
         ]
     })
 ], HttpModule);

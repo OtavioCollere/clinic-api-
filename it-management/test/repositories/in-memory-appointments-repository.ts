@@ -49,5 +49,15 @@ export class InMemoryAppointmentsRepository implements AppointmentsRepository{
 
     return appointment
   }
+
+  async findAppointmentsByUserId(appointmentId: string) {
+    const appointments = this.items.filter((item) => item.userId.toString() === appointmentId);
+
+    return appointments;
+  }
+
+  async getAll(): Promise<Appointment[]> {
+    return this.items;
+  }
   
 } 

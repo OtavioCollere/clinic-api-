@@ -10,6 +10,18 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
     private prismaService: PrismaService
   ) {}
 
+  async isPendingStatus(id: string): Promise<boolean> {
+    const appointment = await this.prismaService.appointment.findUnique({
+      where : { id}
+    })
+
+    if (appointment.status !== 'PENDING') {
+      return false;
+    } else { 
+      return true
+    }
+  }
+
   async create(appointment: Appointment): Promise<Appointment> {
     const data = PrismaAppointmentMapper.toPrisma(appointment);
 
@@ -66,7 +78,7 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
     return PrismaAppointmentMapper.toDomain(appointment);
   }
 
-  async save(appointment: Appointment): Promise<void> {
+  async save(appointment: Appointment): Promise<Appointment> {
     const data = PrismaAppointmentMapper.toPrisma(appointment);
 
     await this.prismaService.appointment.update({
@@ -75,6 +87,8 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
         id: data.id
       }
     });
+
+    return appointment;
   }
 
   async delete(id: string): Promise<void> {
@@ -82,4 +96,20 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
       where: { id }
     });
   }
+
+  async findAppointmentsByUserId(appointmentId: string): Promise<Appointment[]> {
+    return await this.prismaService.appointment.findMany({
+      where: { userId: appointmentId }
+    }).then(appointments => appointments.map(PrismaAppointmentMapper.toDomain));
+  }
+
+  async getAll(): Promise<Appointment[]> {
+    const appointments = await this.prismaService.appointment.findMany();
+
+    return appointments.map(PrismaAppointmentMapper.toDomain);
+  }
+
+
+  
+
 }

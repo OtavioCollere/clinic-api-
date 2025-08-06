@@ -20,6 +20,7 @@ const zod_validation_pipe_1 = require("../../pipes/zod-validation-pipe");
 const either_1 = require("../../../../core/either/either");
 const wrong_credentials_error_1 = require("../../../../core/errors/wrong-credentials-error");
 const public_1 = require("../../../auth/public");
+const swagger_1 = require("@nestjs/swagger");
 const authenticateUserBodySchema = zod_1.default.object({
     email: zod_1.default.string().email(),
     password: zod_1.default.string()
@@ -51,9 +52,38 @@ let AuthenticateController = class AuthenticateController {
 };
 exports.AuthenticateController = AuthenticateController;
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: "Authenticate a user with JWT" }),
     (0, common_1.Post)(),
     (0, common_1.HttpCode)(200),
     (0, common_1.UsePipes)(new zod_validation_pipe_1.ZodValidationPipe(authenticateUserBodySchema)),
+    (0, swagger_1.ApiBody)({
+        description: "User authentication data",
+        schema: {
+            type: 'object',
+            properties: {
+                email: { type: 'string', format: 'email' },
+                password: { type: 'string' }
+            },
+            required: ['email', 'password']
+        }
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: "User authenticated successfully",
+        schema: {
+            example: {
+                access_token: "41lmiof12i0ofm12ionjfa_otmevjaehnasneska_lcaets"
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 401,
+        description: 'Wrong credentials error ( Unathourized exception )',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Bad Request',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -62,6 +92,7 @@ __decorate([
 exports.AuthenticateController = AuthenticateController = __decorate([
     (0, common_1.Controller)('/session'),
     (0, public_1.Public)(),
+    (0, swagger_1.ApiTags)('Auth'),
     __metadata("design:paramtypes", [authenticate_user_1.AuthenticatheUserUseCase])
 ], AuthenticateController);
 //# sourceMappingURL=authenticate-user.js.map

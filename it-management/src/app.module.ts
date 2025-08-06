@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './infra/env/env';
@@ -15,7 +14,6 @@ import { EnvModule } from './infra/env/env.module';
     HttpModule,
     EnvModule
   ],
-  controllers: [AppController],
   providers: [
     
     AppService,

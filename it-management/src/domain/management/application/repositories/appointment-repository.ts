@@ -10,4 +10,8 @@ export abstract class AppointmentsRepository{
 
   // Verifica se o status é PENDING
   abstract isPendingStatus(id : string) : Promise<boolean>
+
+  abstract findAppointmentsByUserId(appointmentId : string) : Promise<Appointment[]>
+  abstract getAll() : Promise<Appointment[]>
+
 }

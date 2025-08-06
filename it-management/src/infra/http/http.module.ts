@@ -8,6 +8,10 @@ import { AuthenticatheUserUseCase } from "src/domain/management/application/use-
 import { AuthenticateController } from "./controllers/users/authenticate-user";
 import { CreateAppointmentController } from "./controllers/appointments/create-appointment";
 import { CreateAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/create-appointment";
+import { ConfirmAppointmentController } from "./controllers/appointments/confirm-appointment";
+import { ConfirmAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/confirm-appointment";
+import { CancelAppointmentController } from "./controllers/appointments/cancel-appointment";
+import { CancelAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/cancel-appointment";
 
 
 // Importar modulo em app module
@@ -22,13 +26,17 @@ import { CreateAppointmentUseCase } from "src/domain/management/application/use-
     RegisterUserController,
     AuthenticateController,
 
-    CreateAppointmentController
+    CreateAppointmentController,
+    ConfirmAppointmentController,
+    CancelAppointmentController
   ],
   providers : [
     RegisterUserUseCase,
     AuthenticatheUserUseCase,
 
-    CreateAppointmentUseCase
+    CreateAppointmentUseCase,
+    ConfirmAppointmentUseCase,
+    CancelAppointmentUseCase
   ]
 })
 export class HttpModule{}

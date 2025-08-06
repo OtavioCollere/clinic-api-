@@ -17,6 +17,17 @@ let PrismaAppointmentRepository = class PrismaAppointmentRepository {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
+    async isPendingStatus(id) {
+        const appointment = await this.prismaService.appointment.findUnique({
+            where: { id }
+        });
+        if (appointment.status !== 'PENDING') {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     async create(appointment) {
         const data = prisma_appointment_mapper_1.PrismaAppointmentMapper.toPrisma(appointment);
         await this.prismaService.appointment.create({
@@ -67,11 +78,21 @@ let PrismaAppointmentRepository = class PrismaAppointmentRepository {
                 id: data.id
             }
         });
+        return appointment;
     }
     async delete(id) {
         await this.prismaService.appointment.delete({
             where: { id }
         });
+    }
+    async findAppointmentsByUserId(appointmentId) {
+        return await this.prismaService.appointment.findMany({
+            where: { userId: appointmentId }
+        }).then(appointments => appointments.map(prisma_appointment_mapper_1.PrismaAppointmentMapper.toDomain));
+    }
+    async getAll() {
+        const appointments = await this.prismaService.appointment.findMany();
+        return appointments.map(prisma_appointment_mapper_1.PrismaAppointmentMapper.toDomain);
     }
 };
 exports.PrismaAppointmentRepository = PrismaAppointmentRepository;

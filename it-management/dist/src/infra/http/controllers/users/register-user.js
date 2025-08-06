@@ -20,6 +20,7 @@ const register_user_1 = require("../../../../domain/management/application/use-c
 const public_1 = require("../../../auth/public");
 const zod_1 = require("zod");
 const zod_validation_pipe_1 = require("../../pipes/zod-validation-pipe");
+const swagger_1 = require("@nestjs/swagger");
 const registerUserBodySchema = zod_1.default.object({
     name: zod_1.default.string(),
     email: zod_1.default.string().email(),
@@ -57,9 +58,40 @@ let RegisterUserController = class RegisterUserController {
 };
 exports.RegisterUserController = RegisterUserController;
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: "Register a new user" }),
     (0, common_1.Post)(),
     (0, common_1.HttpCode)(201),
     (0, common_1.UsePipes)(new zod_validation_pipe_1.ZodValidationPipe(registerUserBodySchema)),
+    (0, swagger_1.ApiBody)({
+        description: "User registration data",
+        schema: {
+            type: 'object',
+            properties: {
+                name: { type: 'string' },
+                email: { type: 'string' },
+                password: { type: 'string' },
+                sector: { type: 'string' }
+            },
+            required: ['name', 'email', 'password', 'sector']
+        },
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'User created successfully',
+        schema: {
+            example: {
+                user: { id: 'uuid' },
+            },
+        },
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 409,
+        description: 'Email already exists ( Conflict Exception )',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Bad Request',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -68,6 +100,7 @@ __decorate([
 exports.RegisterUserController = RegisterUserController = __decorate([
     (0, common_1.Controller)('/users'),
     (0, public_1.Public)(),
+    (0, swagger_1.ApiTags)('Auth'),
     __metadata("design:paramtypes", [register_user_1.RegisterUserUseCase])
 ], RegisterUserController);
 //# sourceMappingURL=register-user.js.map
