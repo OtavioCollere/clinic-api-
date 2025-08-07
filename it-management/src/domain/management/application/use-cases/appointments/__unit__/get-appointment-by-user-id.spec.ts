@@ -4,7 +4,7 @@ import { describe, beforeEach, it, expect } from "vitest";
 import { MakeUser } from "test/factories/make-user";
 import { MakeAppointment } from "test/factories/make-appointment";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 import { GetAppointmentsUseCaseByUserId } from "../get-appointments-by-user-id";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 

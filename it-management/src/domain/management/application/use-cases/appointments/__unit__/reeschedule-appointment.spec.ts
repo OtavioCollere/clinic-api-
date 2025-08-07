@@ -6,7 +6,7 @@ import { MakeAppointment } from "test/factories/make-appointment";
 import { isRight, isLeft, unwrapEither } from "src/core/either/either";
 import { RescheduleAppointmentUseCase } from "../reschedule-appointment";
 import { StatusIsNotPedingError } from "src/core/errors/status-is-not-peding-error";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 import { EditorUserFoundError } from "src/core/errors/editor-user-not-found-error";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { InvalidDateError } from "src/core/errors/invalid-date-error";
@@ -66,7 +66,7 @@ describe("RescheduleAppointmentUseCase unit tests", () => {
 
     expect(isLeft(result)).toBeTruthy();
     if (isLeft(result)) {
-      expect(result.left).toBeInstanceOf(AppointmentFoundError);
+      expect(result.left).toBeInstanceOf(AppointmentNotFoundError);
     }
   });
 

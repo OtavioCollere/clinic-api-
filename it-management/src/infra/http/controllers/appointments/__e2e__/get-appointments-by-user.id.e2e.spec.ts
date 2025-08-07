@@ -46,20 +46,5 @@ describe('Authenticate User (E2E)', () => {
 
   })
 
-  it('[POST] /session (sad path - wrong credentials)', async () => {
-    await userFactory.makePrismaUser({
-      name: 'Otavio',
-      email: 'otavio_test@email.com',
-      password: await hash('otavio', 6),
-      sector: 'ti'
-    })
-
-    const result = await request(app.getHttpServer()).post('/session').send({
-      email: 'otavio_test@email.com',
-      password: 'wrong-password',
-    })
-
-    expect(result.statusCode).toEqual(401)
-  })
 
 })

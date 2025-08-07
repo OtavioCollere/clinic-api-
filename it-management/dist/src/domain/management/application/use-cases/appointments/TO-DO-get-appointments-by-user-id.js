@@ -22,7 +22,7 @@ let GetAppointmentsUseCase = class GetAppointmentsUseCase {
     async execute({ userId }) {
         const appointment = await this.appointmentsRepository.findById(appointmentId);
         if (!appointment) {
-            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentFoundError());
+            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentNotFoundError());
         }
         const userExists = await this.usersRepository.findById(updatedBy);
         if (!userExists) {

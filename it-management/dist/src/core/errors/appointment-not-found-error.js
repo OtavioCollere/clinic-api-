@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentFoundError = void 0;
-class AppointmentFoundError extends Error {
+exports.AppointmentNotFoundError = void 0;
+class AppointmentNotFoundError extends Error {
     constructor() {
         super("Appointment not found");
     }
 }
-exports.AppointmentFoundError = AppointmentFoundError;
+exports.AppointmentNotFoundError = AppointmentNotFoundError;
 //# sourceMappingURL=appointment-not-found-error.js.map

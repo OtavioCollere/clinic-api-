@@ -29,7 +29,7 @@ let RescheduleAppointmentUseCase = class RescheduleAppointmentUseCase {
     async execute({ appointmentId, updatedBy, userId, name, description, duration, dateHour }) {
         const appointment = await this.appointmentsRepository.findById(appointmentId);
         if (!appointment) {
-            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentFoundError());
+            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentNotFoundError());
         }
         const isPendingStatus = appointment.isPendingStatus();
         if (!isPendingStatus) {
@@ -74,6 +74,6 @@ exports.RescheduleAppointmentUseCase = RescheduleAppointmentUseCase;
 exports.RescheduleAppointmentUseCase = RescheduleAppointmentUseCase = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [appointment_repository_1.AppointmentsRepository,
-        users_repository_1.UsersRepository])
+    users_repository_1.UsersRepository])
 ], RescheduleAppointmentUseCase);
 //# sourceMappingURL=reschedule-appointment.js.map

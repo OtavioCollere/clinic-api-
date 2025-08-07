@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { AppointmentsRepository } from "../../repositories/appointment-repository";
 import { UsersRepository } from "../../repositories/users-repository";
 import { Either, makeLeft, makeRight } from "src/core/either/either";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
@@ -12,7 +12,7 @@ interface ConfirmAppointmentUseCaseRequest {
 }
 
 type ConfirmAppointmentUseCaseResponse = Either<
-  AppointmentFoundError | UserNotFoundError,
+  AppointmentNotFoundError | UserNotFoundError,
   {
     appointment : Appointment
   }
@@ -31,7 +31,7 @@ export class ConfirmAppointmentUseCase{
     const appointment = await this.appointmentsRepository.findById(appointmentId);
 
     if(!appointment){
-      return makeLeft(new AppointmentFoundError());
+      return makeLeft(new AppointmentNotFoundError());
     }
 
     const userExists = await this.usersRepository.findById(updatedBy);

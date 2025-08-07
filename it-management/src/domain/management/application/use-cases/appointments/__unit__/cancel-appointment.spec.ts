@@ -5,7 +5,7 @@ import { MakeUser } from "test/factories/make-user";
 import { MakeAppointment } from "test/factories/make-appointment";
 import { isLeft, isRight, unwrapEither } from "src/core/either/either";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 import { CancelAppointmentUseCase } from "../cancel-appointment";
 
 describe("Cancel appointment use case unit tests", () => {
@@ -54,7 +54,7 @@ describe("Cancel appointment use case unit tests", () => {
     });
 
     expect(isLeft(result)).toBeTruthy();
-    expect(unwrapEither(result)).toBeInstanceOf(AppointmentFoundError);
+    expect(unwrapEither(result)).toBeInstanceOf(AppointmentNotFoundError);
   });
 
   it("should not be able to cancel an appointment with a non-existent user", async () => {

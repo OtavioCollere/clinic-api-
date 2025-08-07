@@ -38,7 +38,7 @@ let CancelAppointmentController = class CancelAppointmentController {
         if ((0, either_1.isLeft)(result)) {
             const error = (0, either_1.unwrapEither)(result);
             switch (error.constructor) {
-                case appointment_not_found_error_1.AppointmentFoundError:
+                case appointment_not_found_error_1.AppointmentNotFoundError:
                     throw new common_1.NotFoundException(error.message);
                 case user_not_found_error_1.UserNotFoundError:
                     throw new common_1.NotFoundException(error.message);

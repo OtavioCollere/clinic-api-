@@ -24,7 +24,7 @@ let CancelAppointmentUseCase = class CancelAppointmentUseCase {
     async execute({ appointmentId, updatedBy, }) {
         const appointment = await this.appointmentsRepository.findById(appointmentId);
         if (!appointment) {
-            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentFoundError());
+            return (0, either_1.makeLeft)(new appointment_not_found_error_1.AppointmentNotFoundError());
         }
         const userExists = await this.usersRepository.findById(updatedBy);
         if (!userExists) {
@@ -41,6 +41,6 @@ exports.CancelAppointmentUseCase = CancelAppointmentUseCase;
 exports.CancelAppointmentUseCase = CancelAppointmentUseCase = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [appointment_repository_1.AppointmentsRepository,
-        users_repository_1.UsersRepository])
+    users_repository_1.UsersRepository])
 ], CancelAppointmentUseCase);
 //# sourceMappingURL=cancel-appointment.js.map

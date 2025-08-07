@@ -3,9 +3,9 @@ import { CancelAppointmentUseCase } from "src/domain/management/application/use-
 import z from "zod";
 import { ZodValidationPipe } from "../../pipes/zod-validation-pipe";
 import { isLeft, unwrapEither } from "src/core/either/either";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 
 // Schema para validar o corpo da requisição
 const cancelAppointmentBodySchema = z.object({
@@ -82,7 +82,7 @@ export class CancelAppointmentController {
       const error = unwrapEither(result);
 
       switch (error.constructor) {
-        case AppointmentFoundError:
+        case AppointmentNotFoundError:
           throw new NotFoundException(error.message);
         case UserNotFoundError:
           throw new NotFoundException(error.message);

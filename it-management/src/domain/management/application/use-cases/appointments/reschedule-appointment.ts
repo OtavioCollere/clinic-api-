@@ -9,7 +9,7 @@ import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { InvalidIntervalError } from "src/core/errors/invalid-interval-error";
 import { StatusIsNotPedingError } from "src/core/errors/status-is-not-peding-error";
 import { EditorUserFoundError } from "src/core/errors/editor-user-not-found-error";
-import { AppointmentFoundError } from "src/core/errors/appointment-not-found-error";
+import { AppointmentNotFoundError } from "src/core/errors/appointment-not-found-error";
 import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 import { InvalidDateError } from "src/core/errors/invalid-date-error";
 
@@ -51,7 +51,7 @@ export class RescheduleAppointmentUseCase{
     const appointment = await this.appointmentsRepository.findById(appointmentId)
 
     if(!appointment) {
-      return makeLeft(new AppointmentFoundError())
+      return makeLeft(new AppointmentNotFoundError())
     }
     
     // primeiro verificar se status não é canceled
