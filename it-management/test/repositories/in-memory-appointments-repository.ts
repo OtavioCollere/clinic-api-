@@ -1,4 +1,5 @@
 import type { AppointmentsRepository } from "src/domain/management/application/repositories/appointment-repository";
+import type { FetchAppointmentsUseCase, FetchAppointmentsUseCaseRequest } from "src/domain/management/application/use-cases/appointments/fetch-appointments";
 import type { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
 export class InMemoryAppointmentsRepository implements AppointmentsRepository{
@@ -56,8 +57,25 @@ export class InMemoryAppointmentsRepository implements AppointmentsRepository{
     return appointments;
   }
 
-  async getAll(): Promise<Appointment[]> {
-    return this.items;
+  async getAll({query, page} : FetchAppointmentsUseCaseRequest ): Promise<Appointment[]> {
+    let PAGE_SIZE = 20
+  
+    let results = this.items
+
+    // Filtro por query se estiver presente
+    if (query) {
+      const q = query.toLowerCase()
+      results = results.filter(item =>
+        item.name?.toLowerCase().includes(q) ||
+        item.description?.toLowerCase().includes(q) ||
+        item.status?.toLowerCase().includes(q)        
+      )
+    }
+  
+    // Paginação
+    const startIndex = (page - 1) * PAGE_SIZE
+    const endIndex = startIndex + PAGE_SIZE
+    return results.slice(startIndex, endIndex)
   }
   
 } 

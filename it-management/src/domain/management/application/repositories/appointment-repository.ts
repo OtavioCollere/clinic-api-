@@ -1,4 +1,5 @@
 import { Appointment } from "../../enterprise/entities/appointment";
+import type { FetchAppointmentsUseCaseIdRequest } from "../use-cases/appointments/fetch-appointments";
 
 export abstract class AppointmentsRepository{
   abstract create(appointment: Appointment): Promise<Appointment>;
@@ -12,6 +13,6 @@ export abstract class AppointmentsRepository{
   abstract isPendingStatus(id : string) : Promise<boolean>
 
   abstract findAppointmentsByUserId(appointmentId : string) : Promise<Appointment[]>
-  abstract getAll() : Promise<Appointment[]>
+  abstract getAll({query, page } : FetchAppointmentsUseCaseIdRequest) : Promise<Appointment[]>
 
 }

@@ -104,9 +104,7 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
   }
 
   async getAll(): Promise<Appointment[]> {
-    const appointments = await this.prismaService.appointment.findMany();
-
-    return appointments.map(PrismaAppointmentMapper.toDomain);
+    
   }
 
 
