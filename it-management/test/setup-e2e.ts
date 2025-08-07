@@ -23,7 +23,8 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL;
 
-  execSync('pnpm prisma migrate deploy')
+// No setup-e2e.ts
+execSync("pnpm prisma db push");
 })
 
 afterAll(async () => {

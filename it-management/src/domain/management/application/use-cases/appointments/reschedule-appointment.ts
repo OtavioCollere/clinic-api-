@@ -92,7 +92,7 @@ export class RescheduleAppointmentUseCase{
 
   
     if (userId) {
-      const user = this.usersRepository.findById(userId);
+      const user = await this.usersRepository.findById(userId);
 
       if(!user) {
         return makeLeft(new UserNotFoundError())

@@ -5,8 +5,8 @@ import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
 export interface FetchAppointmentsUseCaseRequest {
-  query? : string
-  page? : number
+  query : string
+  page : number
 }
 
 type FetchAppointmentsUseCaseResponse = Either<

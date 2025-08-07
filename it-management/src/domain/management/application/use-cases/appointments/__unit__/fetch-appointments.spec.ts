@@ -35,21 +35,41 @@ describe("Fetch appointments use case unit tests", () => {
         }))
       }
 
-      const result = await sut.execute({query : 'appointment'})
+      const result = await sut.execute({query : 'appointment', page : 1})
 
       expect(isRight(result)).toBeTruthy()
       if(isRight(result))
       {
-        console.log(inMemoryAppointmentsRepository.items.map(item => item.description))
-
-        console.log(unwrapEither(result).appointments);
-        console.log(unwrapEither(result).appointments.length);
-        
-        expect(unwrapEither(result).appointments).toHaveLength(5)
+        expect(unwrapEither(result).appointments).toHaveLength(10)
         expect(unwrapEither(result).appointments[0].userId).toEqual(user.id)
       }
       
   });
+
+  it("should fetch all appointments when query is not provided", async () => {
+    const user = MakeUser({});
+    inMemoryUsersRepository.items.push(user);
+  
+    for (let i = 0; i < 10; i++) {
+      inMemoryAppointmentsRepository.items.push(MakeAppointment({
+        userId: user.id,
+        description: `appointment ${i}`
+      }));
+  
+      inMemoryAppointmentsRepository.items.push(MakeAppointment({
+        userId: user.id
+      }));
+    }
+  
+    const result = await sut.execute({ query : '', page: 1 }); // sem query
+  
+    expect(isRight(result)).toBeTruthy();
+    if (isRight(result)) {
+      expect(unwrapEither(result).appointments).toHaveLength(20);
+      expect(unwrapEither(result).appointments[0].userId).toEqual(user.id);
+    }
+  });
+  
 
 
 });
