@@ -32,8 +32,6 @@ export class AuthenticatheUserUseCase{
     const user = await this.usersRepository.findByEmail(email);
 
     if(!user) {
-      console.log("user not exists");
-      
       return makeLeft(new WrongCredentialsError())
     }
 
