@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 import { Appointment, type AppointmentProps } from "src/domain/management/enterprise/entities/appointment";
 import { PrismaAppointmentMapper } from "src/infra/database/prisma/mappers/prisma-appointment-mapper";
-import type { PrismaService } from "src/infra/database/prisma/prisma.service";
+import { PrismaService } from "src/infra/database/prisma/prisma.service";
 
 export function MakeAppointment(override : Partial<AppointmentProps>, id? : string) {
   const appointment = Appointment.create({
@@ -21,13 +21,11 @@ export function MakeAppointment(override : Partial<AppointmentProps>, id? : stri
 
 @Injectable()
 export class AppointmentFactory{
-  constructor(private prismaService : PrismaService) {
+  constructor(private prismaService : PrismaService) {} 
 
-  } 
+  async makePrismaAppointment(data : Partial<AppointmentProps> = {}) : Promise<Appointment> {
 
-  async MakeAppointment(data : Partial<AppointmentProps> = {}) : Promise<Appointment> {
-
-    const appointment = MakeAppointment({})
+    const appointment = MakeAppointment(data)
 
     await this.prismaService.appointment.create({
       data: PrismaAppointmentMapper.toPrisma(appointment)

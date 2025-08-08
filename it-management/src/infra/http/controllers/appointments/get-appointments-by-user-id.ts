@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Get, HttpCode, NotFoundException, Para
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import z from "zod";
 import { ZodValidationPipe } from "../../pipes/zod-validation-pipe";
-import type { GetAppointmentsUseCaseByUserId } from "src/domain/management/application/use-cases/appointments/get-appointments-by-user-id";
+import { GetAppointmentsUseCaseByUserId } from "src/domain/management/application/use-cases/appointments/get-appointments-by-user-id";
 import { isLeft, unwrapEither } from "src/core/either/either";
 import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 
@@ -12,7 +12,7 @@ const getAppointmentsByUserIdParamSchema = z.object({
 
 type GetAppointmentsByUserIdParamSchema = z.infer<typeof getAppointmentsByUserIdParamSchema>
 
-@Controller('appointments')
+@Controller('/appointments')
 @ApiTags('Appointments')
 export class GetAppointmentsByUserIdController{
 

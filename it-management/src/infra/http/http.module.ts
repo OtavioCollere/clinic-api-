@@ -12,6 +12,8 @@ import { ConfirmAppointmentController } from "./controllers/appointments/confirm
 import { ConfirmAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/confirm-appointment";
 import { CancelAppointmentController } from "./controllers/appointments/cancel-appointment";
 import { CancelAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/cancel-appointment";
+import { GetAppointmentsByUserIdController } from "./controllers/appointments/get-appointments-by-user-id";
+import { GetAppointmentsUseCaseByUserId } from "src/domain/management/application/use-cases/appointments/get-appointments-by-user-id";
 
 
 // Importar modulo em app module
@@ -28,7 +30,8 @@ import { CancelAppointmentUseCase } from "src/domain/management/application/use-
 
     CreateAppointmentController,
     ConfirmAppointmentController,
-    CancelAppointmentController
+    CancelAppointmentController,
+    GetAppointmentsByUserIdController
   ],
   providers : [
     RegisterUserUseCase,
@@ -36,7 +39,8 @@ import { CancelAppointmentUseCase } from "src/domain/management/application/use-
 
     CreateAppointmentUseCase,
     ConfirmAppointmentUseCase,
-    CancelAppointmentUseCase
+    CancelAppointmentUseCase,
+    GetAppointmentsUseCaseByUserId
   ]
 })
 export class HttpModule{}
