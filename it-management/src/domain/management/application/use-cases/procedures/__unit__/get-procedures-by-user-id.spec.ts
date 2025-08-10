@@ -1,16 +1,14 @@
 
 
 import { beforeEach, describe, it, expect } from 'vitest'
-import { RegisterProcedureUseCase } from '../register-procedure'
 import { InMemoryProceduresRepository } from 'test/repositories/in-memory-procedures-repository'
 import { InMemoryAppointmentsRepository } from 'test/repositories/in-memory-appointments-repository'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
 import { MakeUser } from 'test/factories/make-user'
 import { MakeAppointment } from 'test/factories/make-appointment'
-import { isLeft, isRight, unwrapEither } from 'src/core/either/either'
-import { UserNotFoundError } from 'src/core/errors/user-not-found-error'
-import { AppointmentNotFoundError } from 'src/core/errors/appointment-not-found-error'
+import { isRight, unwrapEither } from 'src/core/either/either'
 import { GetProceduresByUserIdUseCase } from '../get-procedures-by-user-id'
+import { MakeProcedure } from 'test/factories/make-procedure'
 
 
 describe('Get Procedure by user id Use Case', () => {
@@ -20,7 +18,7 @@ describe('Get Procedure by user id Use Case', () => {
   let inMemoryAppointmentsRepository: InMemoryAppointmentsRepository;
   let inMemoryUsersRepository : InMemoryUsersRepository;
 
-  beforeAll(() => {
+  beforeEach(() => {
     inMemoryProceduresRepository = new InMemoryProceduresRepository();
     inMemoryAppointmentsRepository = new InMemoryAppointmentsRepository();
     inMemoryUsersRepository = new InMemoryUsersRepository();
@@ -35,15 +33,45 @@ describe('Get Procedure by user id Use Case', () => {
     })
     inMemoryUsersRepository.items.push(user)
 
+    const fakeUser = MakeUser({
+      name : "fake"
+    })
+    inMemoryUsersRepository.items.push(fakeUser)
 
-
-    for (let i = 0 ; i <= 5; i++)
+    let userId = user.id; 
+    for (let i = 1 ; i <= 10; i++)
     {
+
+      if(i > 5)
+      {
+        userId = fakeUser.id
+      }
+
       let createdAppointment = MakeAppointment({
-        userId : user.id,
+        userId : userId,
+        name : `procedure ${i}`
       })
-      inMemoryAppointmentsRepository.create()
+      inMemoryAppointmentsRepository.items.push(createdAppointment)
+
+      let createdProcedure = MakeProcedure({
+        userId : userId,
+        appointmentId : createdAppointment.id
+      })
+      inMemoryProceduresRepository.items.push(createdProcedure)
+
     }
+
+    const result = await sut.execute({
+      userId : userId.toString()
+    })
+
+    expect(isRight(result)).toBeTruthy()
+    if(isRight(result)){
+      console.log(unwrapEither(result).procedures.length);
+      expect(unwrapEither(result).procedures.length).toEqual(5)
+      expect(inMemoryProceduresRepository.items.length).toEqual(10)
+    }
+
 
   })
 

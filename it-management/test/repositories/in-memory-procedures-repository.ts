@@ -1,4 +1,4 @@
-import type { ProceduresRepository } from "src/domain/management/application/repositories/procedures-repository";
+import type { ProceduresRepository, QueryParams } from "src/domain/management/application/repositories/procedures-repository";
 import { Procedure } from "src/domain/management/enterprise/entities/procedure";
 
 export class InMemoryProceduresRepository implements ProceduresRepository {
@@ -31,7 +31,8 @@ export class InMemoryProceduresRepository implements ProceduresRepository {
     this.items = this.items.filter((procedure) => procedure.id.toString() !== id);
   }
 
-  async getAll(): Promise<Procedure[]> {
-    return this.items;
+  async getAll({query, page} : QueryParams): Promise<Procedure[]> {
+    return this.items.filter((item) => item.name.includes(query))
+    .slice((page -1) * 20, page * 20)
   }
 }

@@ -10,11 +10,11 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 // Schema de validação do corpo da requisição para o agendamento
 const createAppointmentBodySchema = z.object({
   userId: z.string().uuid(),
-  name: z.string(),
+  name: z.string().min(1),
   description: z.string().optional(),
-  duration: z.number(),
-  dateHour: z.date(),
-});
+  duration: z.number().int().positive(),
+  dateHour: z.coerce.date(), // <- aceita '2025-08-07T14:30:00Z'
+})
 
 type CreateAppointmentBodySchema = z.infer<typeof createAppointmentBodySchema>;
 

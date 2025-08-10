@@ -78,8 +78,10 @@ export class FetchAppointmentsController {
       throw new BadRequestException('Failed to fetch appointments');
     }
 
+    const { appointments } = unwrapEither(result);
+
     return {
-      appointments: unwrapEither(result).appointments,
+      appointments 
     };
   }
 }

@@ -9,12 +9,18 @@ import { AppointmentFactory } from 'test/factories/make-appointment'
 import { UserFactory } from 'test/factories/make-user'
 import {describe, it, expect} from 'vitest'
 
-describe('Fetch appointmments (E2E)', () => {
+describe('Create appointmment (E2E)', () => {
   let app: INestApplication
   let appointmentFactory : AppointmentFactory
   let userFactory : UserFactory
   let jwt : JwtService
   let prisma : PrismaService
+
+  let user: any
+  let access_token: string
+
+
+// precisa do login
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -32,7 +38,7 @@ describe('Fetch appointmments (E2E)', () => {
     await app.init()
   })
 
-  it("[GET] /appointments", async () => {
+  it("[POST] /appointments/", async () => {
 
     const user = await userFactory.makePrismaUser({
       name : 'Otavio'
@@ -42,31 +48,27 @@ describe('Fetch appointmments (E2E)', () => {
       sub: user.id.toString()
     })
 
-    for(let i = 0; i < 5; i++) {
-      let description;
-
-      if(i < 2)
-      {
-        description = `desc test ${i}`
-      }
-
-      await appointmentFactory.makePrismaAppointment({
-        userId : user.id,
-        description : description
-      })
-    }
-
     const result = await request(app.getHttpServer())
-    .get('/appointments')
+    .post('/appointments')
     .send({
-      query : 'desc test',
-      page : 1
+      userId : user.id.toString(),
+      name : 'Appointment Test',
+      description : 'This is a test appointment',
+      duration : 30,
+      dateHour : '2025-08-07T14:30:00Z',
     })
     .set('Authorization', `Bearer ${access_token}`)
 
-    expect(result.statusCode).toEqual(200)
-    expect(result.body.appointments.length).toEqual(2)
+    expect(result.statusCode).toEqual(201)
 
+    const appointmentOnDatabase = await prisma.appointment.findFirst({
+      where : {
+        name : 'Appointment Test',
+      }
+    })
+
+    expect(appointmentOnDatabase).toBeDefined()
+    expect(appointmentOnDatabase.duration).toEqual(30)
   })
 
 

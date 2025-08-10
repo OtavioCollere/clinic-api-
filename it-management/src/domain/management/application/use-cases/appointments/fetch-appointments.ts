@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { AppointmentsRepository } from "../../repositories/appointment-repository";
 import { Either, makeLeft, makeRight } from "src/core/either/either";
-import { UserNotFoundError } from "src/core/errors/user-not-found-error";
 import { Appointment } from "src/domain/management/enterprise/entities/appointment";
 
 export interface FetchAppointmentsUseCaseRequest {

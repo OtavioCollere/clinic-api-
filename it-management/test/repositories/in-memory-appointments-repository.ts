@@ -57,22 +57,20 @@ export class InMemoryAppointmentsRepository implements AppointmentsRepository{
     return appointments;
   }
 
-  async getAll({query, page} : FetchAppointmentsUseCaseRequest ): Promise<Appointment[]> {
-    let PAGE_SIZE = 20
+  async getAll({ query, page }: FetchAppointmentsUseCaseRequest): Promise<Appointment[]> {
+    const PAGE_SIZE = 20
   
     let results = this.items
-
-    // Filtro por query se estiver presente
+  
     if (query) {
       const q = query.toLowerCase()
       results = results.filter(item =>
         item.name?.toLowerCase().includes(q) ||
         item.description?.toLowerCase().includes(q) ||
-        item.status?.toLowerCase().includes(q)        
+        item.status?.toLowerCase().includes(q)
       )
     }
   
-    // Paginação
     const startIndex = (page - 1) * PAGE_SIZE
     const endIndex = startIndex + PAGE_SIZE
     return results.slice(startIndex, endIndex)

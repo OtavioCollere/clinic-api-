@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,20 +8,24 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(uuid())
-  name        String
-  email       String        @unique
-  sector      String
-  password    String
-  updatedAt   DateTime?     @updatedAt
-  createdAt   DateTime?     @default(now())
-  Appointment Appointment[]
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  sector    String
+  password  String
+  updatedAt DateTime? @updatedAt
+  createdAt DateTime? @default(now())
+
+  // back-relations clarinhas e com nomes distintos
+  appointments      Appointment[]
+  procedures        Procedure[]   @relation("UserProcedures") // procedures do usuário (quem recebeu)
+  updatedProcedures Procedure[]   @relation("ProcedureUpdatedBy") // procedures que este usuário atualizou
 }
 
 model Appointment {
   id          String    @id @default(uuid())
   name        String
-  description String
+  description String?
   duration    Int?
   status      String
   dateHour    DateTime
@@ -34,6 +33,31 @@ model Appointment {
   updatedAt   DateTime? @updatedAt
   createdAt   DateTime? @default(now())
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String
+  procedures Procedure[]
+}
+
+enum ProcedureName {
+  BOTOX
+  PREENCHIMENTO
+  LAVIEEN
+}
+
+model Procedure {
+  id            String        @id @default(uuid())
+  appointmentId String
+  userId        String
+  updatedById   String? // quem atualizou (opcional)
+  name          ProcedureName
+  value         Float
+  product       String?
+  region        String
+  updatedAt     DateTime?     @updatedAt
+  createdAt     DateTime?     @default(now())
+
+  // relações COM NOMES para tirar ambiguidade
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+  user        User        @relation("UserProcedures", fields: [userId], references: [id])
+  updatedBy   User?       @relation("ProcedureUpdatedBy", fields: [updatedById], references: [id])
 }

@@ -61,6 +61,6 @@ describe('Cancel appointment (E2E)', () => {
       },
     })
 
-    expect(cancelledAppointment.status).toEqual('CANCELLED')
+    expect(cancelledAppointment.status).toEqual('CANCELED')
   })
 })

@@ -23,8 +23,16 @@ export class Procedure extends Entity<ProcedureProps> {
     return this.props.value
   }
 
+  set appointmentId(value : UniqueEntityID) {
+    this.props.appointmentId = this.appointmentId
+  }
+
   get appointmentId() {
     return this.props.appointmentId;
+  }
+
+  set userId(value : UniqueEntityID) {
+    this.props.userId = this.userId
   }
 
   get userId() {

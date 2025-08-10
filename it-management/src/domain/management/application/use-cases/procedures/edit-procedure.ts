@@ -51,7 +51,7 @@ export class EditProcedureUseCase{
         return makeLeft(new UserNotFoundError());
       }
 
-      procedure.userId = userId
+      procedure.userId = new UniqueEntityID(userId)
     }
 
     if (appointmentId) {
@@ -61,7 +61,7 @@ export class EditProcedureUseCase{
         return makeLeft(new AppointmentNotFoundError());
       }
 
-      procedure.appointmentId = appointmentId
+      procedure.appointmentId = new UniqueEntityID(appointmentId)
     }
 
     if (name) procedure.name = name;

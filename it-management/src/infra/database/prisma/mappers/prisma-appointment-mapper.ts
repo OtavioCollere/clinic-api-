@@ -25,7 +25,7 @@ export class PrismaAppointmentMapper {
       id: appointment.id.toString(),
       userId: appointment.userId.toString(),
       name: appointment.name,
-      description: appointment.description ?? null,
+      description: appointment.description,
       duration: appointment.duration,
       status: appointment.status,
       dateHour: appointment.dateHour,

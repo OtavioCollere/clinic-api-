@@ -1,57 +1,73 @@
 import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
-import { hash } from 'bcryptjs'
 import { AppModule } from 'src/app.module'
 import { DatabaseModule } from 'src/infra/database/database.module'
 import request from 'supertest'
 import { AppointmentFactory } from 'test/factories/make-appointment'
-import { MakeUser, UserFactory } from 'test/factories/make-user'
-import {describe, it, expect} from 'vitest'
+import { UserFactory } from 'test/factories/make-user'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
 
 describe('Get appointments by user id (E2E)', () => {
   let app: INestApplication
-  let userFactory : UserFactory
-  let appointmentFactory : AppointmentFactory
+  let userFactory: UserFactory
+  let appointmentFactory: AppointmentFactory
+  let jwt: JwtService
+
+  let user: any
+  let access_token: string
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers : [UserFactory, AppointmentFactory]
+      providers: [UserFactory, AppointmentFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
-
-    appointmentFactory = moduleRef.get(AppointmentFactory)
-    userFactory = moduleRef.get(UserFactory)
-
     await app.init()
+
+    // pegue os providers DEPOIS do init
+    appointmentFactory = app.get(AppointmentFactory)
+    userFactory = app.get(UserFactory)
+    jwt = app.get(JwtService) // garante que vem do grafo real
   })
 
-  it("[GET] /appointments/:userId", async () => {
+  afterAll(async () => {
+    await app.close()
+  })
 
-    const user = await userFactory.makePrismaUser({
-      name : 'Otavio'
+  beforeEach(async () => {
+    user = await userFactory.makePrismaUser({ name: 'Otavio' })
+
+    access_token = jwt.sign({
+      sub: user.id.toString(),
     })
+  })
 
-    for (let i = 0; i <= 3; i++)
-      await appointmentFactory.makeAppointment({
+  it('[GET] /appointments/:userId', async () => {
+
+    for (let i = 0; i < 4; i++) {
+      await appointmentFactory.makePrismaAppointment({
         userId: user.id,
-        description : `desc ${i}`
+        description: `desc ${i}`,
       })
-    {}
+    }
 
-    const result = await request(app.getHttpServer()).get(`/appointments/${user.id}`).send({})
+    const result = await request(app.getHttpServer())
+      .get(`/appointments/${user.id}`)
+      .set('Authorization', `Bearer ${access_token}`)
 
-    expect(result.statusCode).toEqual(200)
+    expect(result.statusCode).toBe(200)
     expect(result.body.appointments).toHaveLength(4)
   })
 
-  it("[GET] /appointments/:userId - USER NOT FOUND", async () => {
+  it('[GET] /appointments/:userId - USER NOT FOUND', async () => {
+    // precisa mandar o token senão cai no guard e vira 401
+    const result = await request(app.getHttpServer())
+      .get('/appointments/non-existent-id')
+      .set('Authorization', `Bearer ${access_token}`)
 
-    const result = await request(app.getHttpServer()).get(`/appointments/${'non-existent-id'}`).send({})
-
-    expect(result.statusCode).toEqual(400)
+    // aqui você decide: se seu controller trata como 400, assert 400.
+    expect(result.statusCode).toBe(400)
   })
-
-
 })

@@ -60,7 +60,7 @@ export class CreateAppointmentUseCase{
       }))
     }
 
-    const appointment = new Appointment({
+    const appointment = Appointment.create({
       userId : new UniqueEntityID(userId),
       name,
       description,

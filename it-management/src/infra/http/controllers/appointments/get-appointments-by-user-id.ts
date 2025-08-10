@@ -91,12 +91,7 @@ export class GetAppointmentsByUserIdController{
 
     }
 
-    const appointments = unwrapEither(result);
-
-    return {
-      appointments
-    }
-
-
+    const { appointments } = unwrapEither(result)
+    return { appointments }
   }
 }

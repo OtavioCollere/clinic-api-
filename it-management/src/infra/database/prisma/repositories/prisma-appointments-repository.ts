@@ -3,6 +3,7 @@ import { PrismaService } from "../prisma.service";
 import { PrismaAppointmentMapper } from "../mappers/prisma-appointment-mapper";
 import type { AppointmentsRepository } from "src/domain/management/application/repositories/appointment-repository";
 import type { Appointment } from "src/domain/management/enterprise/entities/appointment";
+import type { QueryParams } from "src/domain/management/application/repositories/procedures-repository";
 
 @Injectable()
 export class PrismaAppointmentRepository implements AppointmentsRepository {
@@ -103,9 +104,28 @@ export class PrismaAppointmentRepository implements AppointmentsRepository {
     }).then(appointments => appointments.map(PrismaAppointmentMapper.toDomain));
   }
 
-  async getAll(): Promise<Appointment[]> {
-    
+  async getAll({ query, page }: QueryParams): Promise<Appointment[]> {
+    const PAGE_SIZE = 20
+  
+    const appointments = await this.prismaService.appointment.findMany({
+      where: query
+        ? {
+            OR: [
+              { name: { contains: query, mode: 'insensitive' } },
+              { description: { contains: query, mode: 'insensitive' } },
+              { status: { contains: query, mode: 'insensitive' } },
+            ],
+          }
+        : undefined,
+      take: PAGE_SIZE,
+      skip: (page - 1) * PAGE_SIZE,
+      orderBy: { createdAt: 'desc' }, // opcional
+    })
+  
+    return appointments.map(PrismaAppointmentMapper.toDomain)
   }
+  
+  
 
 
   

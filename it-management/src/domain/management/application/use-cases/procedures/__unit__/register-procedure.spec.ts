@@ -19,7 +19,7 @@ describe('Register Procedure Use Case', () => {
   let inMemoryAppointmentsRepository: InMemoryAppointmentsRepository;
   let inMemoryUsersRepository : InMemoryUsersRepository;
 
-  beforeAll(() => {
+  beforeEach(() => {
     inMemoryProceduresRepository = new InMemoryProceduresRepository();
     inMemoryAppointmentsRepository = new InMemoryAppointmentsRepository();
     inMemoryUsersRepository = new InMemoryUsersRepository();

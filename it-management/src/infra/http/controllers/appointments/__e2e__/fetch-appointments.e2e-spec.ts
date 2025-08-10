@@ -32,7 +32,7 @@ describe('Create appointmment (E2E)', () => {
     await app.init()
   })
 
-  it("[POST] /appointments/", async () => {
+  it("[GET] /appointments", async () => {
 
     const user = await userFactory.makePrismaUser({
       name : 'Otavio'
@@ -40,26 +40,39 @@ describe('Create appointmment (E2E)', () => {
 
     const access_token = jwt.sign({
       sub: user.id.toString()
-    })
+    }) 
+    
+    let customName
+    for(let i = 1; i <= 30; i++)
+    {
+        if(i <= 15)
+        {
+          customName = 'appointments for girls'
+        } else {
+          customName = 'appointments for woman'
+        }
+
+        await appointmentFactory.makePrismaAppointment({
+          userId : user.id,
+          name : customName
+        })
+
+      }
+    
 
     const result = await request(app.getHttpServer())
-    .post('/appointments')
-    .send({
-      userId : user.id,
-      name : 'Appointment Test',
-      description : 'This is a test appointment',
-      duration : 30,
-      dateHour : '2025-08-07T14:30:00Z',
+    .get('/appointments')
+    .query({
+      query : 'appointments for girls',
+      page : 1
     })
     .set('Authorization', `Bearer ${access_token}`)
 
-    expect(result.statusCode).toEqual(201)
+    expect(result.statusCode).toEqual(200)
+    expect(result.body.appointments.length).toEqual(15)
+    expect(result.body.appointments[0].props.name).toBe('appointments for girls')
+    expect(result.body.appointments[0].props.userId.value).toBe(user.id.toString())
 
-    const appointmentOnDatabase = await prisma.appointment.findFirst({
-      where : {
-        name : 'Appointment Test',
-      }
-    })
   })
 
 
