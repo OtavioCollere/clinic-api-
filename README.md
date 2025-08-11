@@ -1,5 +1,7 @@
 # 🧾 it-management-api
 
+EM DESENVOLVIMENTO
+
 Uma API robusta e escalável para gerenciamento de procedimentos e agendamentos, com autenticação baseada em JWT, arquitetura desacoplada e foco em qualidade de código, testabilidade e manutenção.
 
 ---
@@ -49,12 +51,6 @@ O projeto representa um cenário comum de sistemas empresariais com múltiplos c
 
 ---
 
-## 📽️ Demonstração
-
-> Em breve: vídeo de demonstração com uso real da API via Swagger e Postman.
-
-![Swagger Screenshot](./docs/swagger.png)
-
 ---
 
 ## ✅ Features
@@ -91,25 +87,3 @@ O projeto representa um cenário comum de sistemas empresariais com múltiplos c
 - **Validação explícita** com tratamento funcional de erros
 
 ---
-
-## 🛠 Instalação
-
-```bash
-git clone https://github.com/seu-usuario/it-management-api.git
-cd it-management-api
-cp .env.example .env
-docker-compose up --build
-
-sem docker
-pnpm install
-pnpm prisma generate
-pnpm prisma migrate dev
-pnpm start:dev
-
-SCRIPTS DISPONIVEIS
-pnpm dev          # Inicia em modo desenvolvimento
-pnpm build        # Compila o projeto
-pnpm start        # Inicia em produção
-pnpm test         # Roda testes unitários
-pnpm test:e2e     # Roda testes E2E
-pnpm lint         # Verifica padrões de código
