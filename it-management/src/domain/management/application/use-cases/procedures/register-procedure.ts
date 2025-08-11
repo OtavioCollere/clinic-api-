@@ -56,7 +56,7 @@ export class RegisterProcedureUseCase{
       value,
     })
 
-    await this.proceduresRepository.save(procedure)
+    await this.proceduresRepository.create(procedure)
 
     return makeRight({
       procedure

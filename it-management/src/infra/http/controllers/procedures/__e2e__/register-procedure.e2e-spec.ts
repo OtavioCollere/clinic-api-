@@ -10,7 +10,7 @@ import { AppointmentFactory } from 'test/factories/make-appointment'
 import { UserFactory } from 'test/factories/make-user'
 import { describe, it, expect } from 'vitest'
 
-describe('Cancel appointment (E2E)', () => {
+describe('Register procedure (E2E)', () => {
   let app: INestApplication
   let appointmentFactory: AppointmentFactory
   let userFactory: UserFactory
@@ -57,8 +57,18 @@ describe('Cancel appointment (E2E)', () => {
         value : 1200
       })
       .set('Authorization', `Bearer ${access_token}`)
-
+      
       expect(result.statusCode).toEqual(201)
+      
+
+      const procedureInDatabase = await prisma.procedure.findFirst({
+        where : {
+           userId : user.id.toString()
+        }
+      })
+
+      expect(procedureInDatabase).toBeDefined()
+      expect(procedureInDatabase.name).toEqual('BOTOX')
 
   })
 })

@@ -27,14 +27,14 @@ export class PrismaProceduresRepository implements ProceduresRepository {
   }
 
   async save(procedure: Procedure): Promise<Procedure> {
-    const data = PrismaProcedureMapper.toPrisma(procedure);
-
+    const data = PrismaProcedureMapper.toPrisma(procedure)
+  
     await this.prismaService.procedure.update({
-      data,
       where: { id: data.id },
-    });
-
-    return procedure;
+      data,
+    })
+  
+    return procedure
   }
 
   async findById(id: string): Promise<Procedure | null> {
