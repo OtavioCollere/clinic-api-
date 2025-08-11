@@ -1,4 +1,4 @@
-# 🧾 it-management-api
+# 🧾 CLINIC-API
 
 EM DESENVOLVIMENTO
 
