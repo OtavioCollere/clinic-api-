@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import type { ProceduresRepository } from "../../repositories/procedures-repository";
+import { ProceduresRepository } from "../../repositories/procedures-repository";
 import { makeRight, type Either } from "src/core/either/either";
-import type { Procedure } from "src/domain/management/enterprise/entities/procedure";
+import { Procedure } from "src/domain/management/enterprise/entities/procedure";
 
 interface GetProceduresByUserIdUseCaseRequest{
   userId : string

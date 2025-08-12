@@ -18,6 +18,9 @@ import { FetchAppointmentsUseCase } from "src/domain/management/application/use-
 import { FetchAppointmentsController } from "./controllers/appointments/fetch-appointment";
 import { RegisterProcedureController } from "./controllers/procedures/register-procedure";
 import { RegisterProcedureUseCase } from "src/domain/management/application/use-cases/procedures/register-procedure";
+import { GetProcedureByUserIdController } from "./controllers/procedures/get-procedure-by-user-id";
+import { GetProceduresByUserIdUseCase } from "src/domain/management/application/use-cases/procedures/get-procedures-by-user-id";
+import { FetchProceduresUseCase } from "src/domain/management/application/use-cases/procedures/fetch-procedures";
 
 
 // Importar modulo em app module
@@ -38,7 +41,9 @@ import { RegisterProcedureUseCase } from "src/domain/management/application/use-
     GetAppointmentsByUserIdController,
     FetchAppointmentsController,
 
-    RegisterProcedureController
+    RegisterProcedureController,
+    GetProcedureByUserIdController ,
+    FetchAppointmentsController
   ],
   providers : [
     RegisterUserUseCase,
@@ -50,7 +55,9 @@ import { RegisterProcedureUseCase } from "src/domain/management/application/use-
     GetAppointmentsUseCaseByUserId,
     FetchAppointmentsUseCase,
 
-    RegisterProcedureUseCase
+    RegisterProcedureUseCase,
+    GetProceduresByUserIdUseCase,
+    FetchProceduresUseCase
   ]
 })
 export class HttpModule{}
