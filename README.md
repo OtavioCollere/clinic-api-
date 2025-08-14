@@ -24,7 +24,7 @@
 
 ## 🎯 Sobre o Projeto
 
-Este projeto demonstra uma **API RESTful completa** para gestão de clínicas médicas, implementando **Clean Architecture** e **Domain-Driven Design**. O sistema gerencia usuários, procedimentos médicos e agendamentos com validações robustas e tratamento de erros elegante.
+Este projeto demonstra uma **API RESTful completa** para gestão de clínicas médicas, implementando **Clean Architecture** e **Domain-Driven Design**. O sistema gerencia usuários, procedimentos médicos e agendamentos com validações robustas e tratamento de erros .
 
 ### ✨ Destaques Técnicos
 
@@ -55,7 +55,6 @@ Este projeto demonstra uma **API RESTful completa** para gestão de clínicas m�
 
 - **Docker** - Containerização da aplicação
 - **pnpm** - Gerenciador de pacotes eficiente
-- **ESLint + Prettier** - Qualidade e formatação de código
 - **GitHub Actions**
 
 ### 🎨 Arquitetura
@@ -70,31 +69,38 @@ src/
 
 ## 📊 Cobertura de Testes
 
-<img width="1917" height="523" alt="image" src="https://github.com/user-attachments/assets/064dddc3-cbb9-4331-8089-686ab34ec4d1" />
-
+| ![Doc 5](https://github.com/user-attachments/assets/064dddc3-cbb9-4331-8089-686ab34ec4d1) | ![Doc 6](https://github.com/user-attachments/assets/e3b9571b-b1b2-4800-a3bf-324bb74713c3) |
+|---|---|
 
 
 - **Testes Unitários**: Cobertura superior a 95%
 - **Testes E2E**: Validação completa dos fluxos de negócio
-- **Testes de Integração**: Validação das APIs e banco de dados
-- **Pipeline CI/CD**: Execução automática em cada commit
+- **Pipeline CI/CD**: Execução automática em cada push
 
-## 📚 Documentação da API
+## 📚 Documentação da API ( Swagger + Scalar )
 
-[**FOTO DA DOCUMENTAÇÃO COM SCALAR AQUI**]
+| ![Doc 1](https://github.com/user-attachments/assets/af8d40d2-9fdc-4ac1-b16f-8e68b1d0f857) | ![Doc 2](https://github.com/user-attachments/assets/81c16311-6a78-4358-a58c-c53cacc05559) |
+|---|---|
+| ![Doc 3](https://github.com/user-attachments/assets/5e5ccd18-a7d9-441f-b9e5-499c11cc44ca) | ![Doc 4](https://github.com/user-attachments/assets/22e11e5e-4985-44eb-b814-a0d068a91c2f) |
 
-Acesse a documentação interativa em: `http://localhost:3000/docs`
 
-### 🔑 Endpoints Principais
+## 📌 Rotas da API
 
-| Método | Rota                | Descrição             | Autenticação |
-| ------ | ------------------- | --------------------- | ------------ |
-| `POST` | `/users`            | Cadastro de usuário   | Pública      |
-| `POST` | `/auth/login`       | Autenticação          | Pública      |
-| `GET`  | `/appointments`     | Listar agendamentos   | JWT          |
-| `POST` | `/appointments`     | Criar agendamento     | JWT          |
-| `PUT`  | `/appointments/:id` | Atualizar agendamento | JWT          |
-| `GET`  | `/procedures`       | Listar procedimentos  | JWT          |
+| Método | Rota | Descrição | Autenticação |
+| ------ | ---- | --------- | ------------ |
+| **`POST`** 🟢 | `/users` | Cadastro de usuário | 🔓 Pública |
+| **`POST`** 🟢 | `/session` | Autenticação | 🔓 Pública |
+| **`POST`** 🟢 | `/appointments` | Criar agendamento | 🔐 JWT |
+| **`GET`** 🔵 | `/appointments` | Listar agendamentos | 🔐 JWT |
+| **`PATCH`** 🟡 | `/appointments/confirm` | Confirmar agendamento | 🔐 JWT |
+| **`PATCH`** 🟡 | `/appointments/cancel` | Cancelar agendamento | 🔐 JWT |
+| **`GET`** 🔵 | `/appointments/{userId}` | Listar agendamentos de um usuário | 🔐 JWT |
+| **`PATCH`** 🟡 | `/appointments/{appointmentId}/reschedule` | Reagendar agendamento | 🔐 JWT |
+| **`POST`** 🟢 | `/procedures` | Criar procedimento | 🔐 JWT |
+| **`GET`** 🔵 | `/procedures` | Listar procedimentos | 🔐 JWT |
+| **`PATCH`** 🟡 | `/procedures` | Editar procedimento | 🔐 JWT |
+| **`GET`** 🔵 | `/procedures/{userId}` | Listar procedimentos de um usuário | 🔐 JWT |
+
 
 ## 🏗️ Estrutura do Projeto
 
@@ -182,21 +188,6 @@ npx prisma migrate dev
 pnpm run start:dev
 ```
 
-### 🌍 Variáveis de Ambiente
-
-```env
-# Banco de Dados
-DATABASE_URL="postgresql://postgres:docker@localhost:5432/clinicdb"
-
-# JWT
-JWT_SECRET="sua-chave-secreta-aqui"
-JWT_EXPIRES_IN="7d"
-
-# Servidor
-PORT=3000
-NODE_ENV=development
-```
-
 ## 🧪 Executando Testes
 
 ```bash
@@ -211,9 +202,6 @@ pnpm run test:cov
 
 # Testes E2E
 pnpm run test:e2e
-
-# Todos os testes
-pnpm run test:all
 ```
 
 ## 📈 Funcionalidades
@@ -242,9 +230,7 @@ pnpm run test:all
 ## 🔐 Autenticação e Autorização
 
 - **JWT Strategy**: Tokens seguros com expiração configurável
-- **Role-based Access**: Controle de acesso baseado em perfis
 - **Guards Customizados**: Proteção de rotas sensíveis
-- **Refresh Tokens**: Renovação automática de sessões
 
 ## 💾 Banco de Dados
 
@@ -253,25 +239,12 @@ pnpm run test:all
 - **Users**: Gestão de usuários e perfis
 - **Appointments**: Agendamentos e status
 - **Procedures**: Procedimentos médicos
-- **Audit Logs**: Rastreamento de mudanças
 
 ### 🔄 Migrations
 
 - **Prisma Migrate**: Controle de versão do banco
 - **Rollbacks**: Reversão segura de mudanças
-- **Seeds**: Dados iniciais para desenvolvimento
 
-## 🚀 Deploy
-
-### 🐳 Docker
-
-```bash
-# Build da imagem
-docker build -t clinic-api .
-
-# Execução
-docker run -p 3000:3000 clinic-api
-```
 
 ## 🏆 Conquistas Técnicas
 
