@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    defaults:
+      run:
+        working-directory: clinic
     steps: 
       # copia o código
       - name : Checkout
@@ -30,11 +33,19 @@ jobs:
 
       - name : Install dependecies
         id: install-dependecies
-        uses: |
+        run: |
           pnpm install
 
+      - name: Start Postgres
+        run: docker-compose up -d
+        working-directory: clinic
+
       - name: Wait for Postgres
-        run: docker exec clinic-api pg_isready -U postgres -d clinicdb
+        run: |
+          for i in {1..30}; do
+            docker exec clinic-api pg_isready -U postgres -d clinicdb && break
+            sleep 2
+          done
 
       - name: Prisma generate
         run: npx prisma generate
