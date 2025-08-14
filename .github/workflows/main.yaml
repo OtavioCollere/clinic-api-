@@ -1,50 +1,38 @@
-name : clini-api-server pipe
+name: clinic-api-server-pipe
 
-on : 
+on:
   push:
     branches:
       - main
 
 jobs:
-  Tests:
+  unit-tests:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-    steps: 
+    steps:
       # copia o código
-      - name : Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name : Configure Node
-        id : configure-node
-        uses : actions/setup-node@v4
+      - name: Configure Node
+        id: configure-node
+        uses: actions/setup-node@v4
         with:
-          node-version : 22
+          node-version: 22
 
-      - name : Install pnpm
+      - name: Install pnpm
         id: install-pnpm
-        uses : pnpm/action-setup@v4
-        with : 
-          version : 8
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-      - name : Install dependecies
-        id: install-dependecies
+      - name: Install dependencies
+        id: install-dependencies
         run: |
           pnpm install
-
-      - name: Start Postgres
-        run: docker-compose up -d
-        working-directory: clinic
-
-      - name: Wait for Postgres
-        run: docker exec clinic-api pg_isready -U postgres -d clinicdb
 
       - name: Prisma generate
         run: npx prisma generate
 
-      - name: Prisma migrate
-        run: npx prisma migrate dev --name ci
-
       - name: Run Unit tests
-        id : run-unit-tests
+        id: run-unit-tests
         run: pnpm run test
