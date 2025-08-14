@@ -1,6 +1,6 @@
 # 🏥 Clinic API - Sistema de Gestão Clínica
 
-> **API RESTful robusta para gestão de clínicas médicas, construída com NestJS e arquitetura limpa**
+> **API RESTful para a gestão de uma clinica de estética, construída com NestJS e arquitetura limpa**
 
 [![Tests](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml)
 [![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)](https://github.com/seu-usuario/clinic-api)
