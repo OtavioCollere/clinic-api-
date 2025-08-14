@@ -1,3 +1,5 @@
+## AINDA EM DESENVOLVIMENTO ##
+
 ## 🧾 IT Management API (Clinic API)
 
 API para gestão de usuários, agendamentos e procedimentos, com autenticação JWT (RS256), arquitetura limpa e testes automatizados. Projetada para ser clara, escalável e fácil de manter.
