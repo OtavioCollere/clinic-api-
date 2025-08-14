@@ -2,7 +2,6 @@
 
 > **API RESTful para a gestão de uma clinica de estética, construída com NestJS e arquitetura limpa**
 
-[![Tests](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml)
 [![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)](https://github.com/seu-usuario/clinic-api)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
