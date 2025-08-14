@@ -24,7 +24,7 @@
 
 ## 🎯 Sobre o Projeto
 
-Este projeto demonstra uma **API RESTful completa** para gestão de clínicas médicas, implementando **Clean Architecture** e **Domain-Driven Design**. O sistema gerencia usuários, procedimentos médicos e agendamentos com validações robustas e tratamento de erros elegante.
+Este projeto demonstra uma **API RESTful completa** para gestão de clínicas médicas, implementando **Clean Architecture** e **Domain-Driven Design**. O sistema gerencia usuários, procedimentos médicos e agendamentos com validações robustas e tratamento de erros .
 
 ### ✨ Destaques Técnicos
 
