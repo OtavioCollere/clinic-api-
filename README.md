@@ -6,8 +6,9 @@
 
 ## **Sobre**  
 Desenvolvedor Full Stack Pleno formado em **Análise e Desenvolvimento de Sistemas** (PUCPR) e cursando **pós-graduação em Desenvolvimento Full Stack** (Rocketseat).  
-Atuo no desenvolvimento, manutenção e evolução de sistemas corporativos, com foco em **performance, escalabilidade e boas práticas de arquitetura**. Tenho experiência em sistemas legados e modernos, desde integrações e refatorações até novas implementações com **SOLID**, **DDD** e **Clean Architecture**.  
-Interesse especial por **arquitetura de software, otimização de performance e escalabilidade**.
+Atualmente atuo na manutenção e evolução de um sistema legado em ambiente industrial, trabalhando com integração, suporte e otimização de rotinas críticas.  
+Paralelamente, venho me especializando em tecnologias modernas como **NestJS**, **TypeScript** e **Clean Architecture**, desenvolvendo projetos pessoais que aplicam boas práticas, testes automatizados e padrões de arquitetura com foco em escalabilidade e qualidade de código, visando a transição para um ecossistema mais atual e desafiador.
+
 
 ---
 
