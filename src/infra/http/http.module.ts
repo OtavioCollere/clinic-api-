@@ -25,6 +25,10 @@ import { FetchProceduresController } from "./controllers/procedures/fetch-proced
 import { EditProcedureController } from "./controllers/procedures/edit-procedure";
 import { EditProcedureUseCase } from "src/domain/management/application/use-cases/procedures/edit-procedure";
 
+import { RescheduleAppointmentController } from "./controllers/appointments/reschedule-appointment";
+
+import { RescheduleAppointmentUseCase } from "src/domain/management/application/use-cases/appointments/reschedule-appointment";
+
 
 // Importar modulo em app module
 
@@ -43,11 +47,13 @@ import { EditProcedureUseCase } from "src/domain/management/application/use-case
     CancelAppointmentController,
     GetAppointmentsByUserIdController,
     FetchAppointmentsController,
+    RescheduleAppointmentController,
 
     RegisterProcedureController,
     GetProcedureByUserIdController ,
     FetchProceduresController,
-    EditProcedureController
+    EditProcedureController,
+
   ],
   providers : [
     RegisterUserUseCase,
@@ -58,6 +64,7 @@ import { EditProcedureUseCase } from "src/domain/management/application/use-case
     CancelAppointmentUseCase,
     GetAppointmentsUseCaseByUserId,
     FetchAppointmentsUseCase,
+    RescheduleAppointmentUseCase,
 
     RegisterProcedureUseCase,
     GetProceduresByUserIdUseCase,

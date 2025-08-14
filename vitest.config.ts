@@ -3,7 +3,6 @@ import { defineConfig } from 'vitest/config'
 import tsConfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  // <<< raiz do Vite/Vitest passa a ser ./src
   root: './src',
 
   test: {
@@ -12,14 +11,19 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      // se por algum motivo for referenciado a partir de src:
-      '../data/**',      // data na raiz do projeto
+      '../data/**',
       '**/data/**',
     ],
-    // evita watcher tocar na pasta proibida
     watchExclude: ['**/data/**', '../data/**'],
-    // opcional:
-    // teardownTimeout: 20000,
+
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      exclude: [
+        'core/either/**',
+        'infra/database/**'
+      ]
+    }
   },
 
   server: {

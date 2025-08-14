@@ -9,7 +9,7 @@ import { AppointmentFactory } from 'test/factories/make-appointment'
 import { UserFactory } from 'test/factories/make-user'
 import {describe, it, expect} from 'vitest'
 
-describe('Create appointmment (E2E)', () => {
+describe('Confirm appointmment (E2E)', () => {
   let app: INestApplication
   let appointmentFactory : AppointmentFactory
   let userFactory : UserFactory

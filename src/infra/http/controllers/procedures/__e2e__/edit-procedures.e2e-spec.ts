@@ -10,7 +10,7 @@ import { MakeProcedure, ProcedureFactory } from 'test/factories/make-procedure'
 import { UserFactory } from 'test/factories/make-user'
 import { describe, it, expect } from 'vitest'
 
-describe('Get procedures by user id (E2E)', () => {
+describe('Edit procedures (E2E)', () => {
   let app: INestApplication
   let appointmentFactory: AppointmentFactory
   let userFactory: UserFactory
