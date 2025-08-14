@@ -55,7 +55,6 @@ Este projeto demonstra uma **API RESTful completa** para gestão de clínicas m�
 
 - **Docker** - Containerização da aplicação
 - **pnpm** - Gerenciador de pacotes eficiente
-- **ESLint + Prettier** - Qualidade e formatação de código
 - **GitHub Actions**
 
 ### 🎨 Arquitetura
