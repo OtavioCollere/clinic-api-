@@ -57,7 +57,7 @@ Este projeto demonstra uma **API RESTful completa** para gestão de clínicas m�
 - **Docker** - Containerização da aplicação
 - **pnpm** - Gerenciador de pacotes eficiente
 - **ESLint + Prettier** - Qualidade e formatação de código
-- **GitHub Actions** - CI/CD automatizado
+- **GitHub Actions**
 
 ### 🎨 Arquitetura
 
@@ -71,7 +71,9 @@ src/
 
 ## 📊 Cobertura de Testes
 
-[**FOTO DO COVERAGE AQUI**]
+<img width="1917" height="523" alt="image" src="https://github.com/user-attachments/assets/064dddc3-cbb9-4331-8089-686ab34ec4d1" />
+
+
 
 - **Testes Unitários**: Cobertura superior a 95%
 - **Testes E2E**: Validação completa dos fluxos de negócio
@@ -272,35 +274,12 @@ docker build -t clinic-api .
 docker run -p 3000:3000 clinic-api
 ```
 
-### ☁️ Cloud Platforms
-
-- **Heroku**: Deploy automático via GitHub
-- **Railway**: Deploy com PostgreSQL integrado
-- **DigitalOcean**: App Platform com auto-scaling
-
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-### 📝 Padrões de Código
-
-- **ESLint**: Configuração rigorosa de qualidade
-- **Prettier**: Formatação automática
-- **Conventional Commits**: Padrão de mensagens
-- **Branch Naming**: `feature/`, `fix/`, `docs/`
-
 ## 🏆 Conquistas Técnicas
 
 - **Clean Architecture**: Separação clara de responsabilidades
-- **TDD/BDD**: Desenvolvimento orientado a testes
 - **SOLID Principles**: Código limpo e manutenível
-- **Error Handling**: Tratamento elegante de erros
+- **Error Handling**: Tratamento de erros
 - **Type Safety**: TypeScript em 100% do código
-- **Performance**: Otimizações de banco e cache
 
 ## 📄 Licença
 
@@ -323,6 +302,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 <div align="center">
   <p>⭐ Se este projeto te ajudou, considere dar uma estrela!</p>
-  <p>📧 Contato: seu-email@exemplo.com</p>
-  <p>🔗 LinkedIn: [seu-linkedin](https://linkedin.com/in/seu-perfil)</p>
+  <p>📧 Contato: otaviosk59@gmail.com</p>
+  <p>🔗 LinkedIn: https://www.linkedin.com/in/otavio-takaki </p>
 </div>
