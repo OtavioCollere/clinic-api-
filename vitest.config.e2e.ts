@@ -1,5 +1,7 @@
+// @ts-ignore
 import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
+// @ts-ignore
 import tsConfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({

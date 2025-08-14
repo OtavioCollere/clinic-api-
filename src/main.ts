@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { Env } from './infra/env/env';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,16 +12,20 @@ async function bootstrap() {
 
   const port = configService.get('PORT', { infer : true })
 
-  const config = new DocumentBuilder()
-  .addBearerAuth()
-  .setTitle('Clinic API')
-  .setDescription('Clinic API Documentation')
-  .setVersion('1.0')
-  .build();
-  
-  const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('docs', app, document);
+  const config = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('Clinic API')
+    .setDescription('Clinic API Documentation')
+    .setVersion('1.0')
+    .build()
+  
+  const document = SwaggerModule.createDocument(app, config)
+  
+  // No lugar do SwaggerModule.setup(...)
+  const OpenApiSpecification = app.use('/docs', apiReference({
+    content: document
+  }))
 
   await app.listen(port);
 }

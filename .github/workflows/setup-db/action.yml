@@ -1,0 +1,26 @@
+name: "Setup Database"
+description: "Sobe Postgres com Docker e aplica migrations"
+runs:
+  using: "composite"
+  steps:
+    - name: Check Docker
+      run: |
+        docker --version
+        docker compose version
+      shell: bash
+
+    - name: Start Postgres
+      run: docker compose up -d
+      shell: bash
+
+    - name: Wait for Postgres
+      run: |
+        until docker exec clinic-api pg_isready -U postgres -d clinicdb; do
+          echo "Waiting for Postgres to be ready..."
+          sleep 2
+        done
+      shell: bash
+
+    - name: Prisma migrate
+      run: npx prisma migrate dev --name ci
+      shell: bash

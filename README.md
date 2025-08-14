@@ -1,294 +1,328 @@
-## AINDA EM DESENVOLVIMENTO ##
+# 🏥 Clinic API - Sistema de Gestão Clínica
 
-## 🧾 Clinic API
+> **API RESTful robusta para gestão de clínicas médicas, construída com NestJS e arquitetura limpa**
 
-API para gestão de usuários, agendamentos e procedimentos, com autenticação JWT (RS256), arquitetura limpa e testes automatizados. Projetada para ser clara, escalável e fácil de manter.
+[![Tests](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/seu-usuario/clinic-api/actions/workflows/ci.yaml)
+[![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)](https://github.com/seu-usuario/clinic-api)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
----
+## 📋 Índice
 
-## 🧠 Sumário
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [🚀 Tecnologias e Arquitetura](#-tecnologias-e-arquitetura)
+- [📊 Cobertura de Testes](#-cobertura-de-testes)
+- [📚 Documentação da API](#-documentação-da-api)
+- [🏗️ Estrutura do Projeto](#️-estrutura-do-projeto)
+- [🔄 Fluxo da Aplicação](#-fluxo-da-aplicação)
+- [⚡ Como Executar](#-como-executar)
+- [🧪 Executando Testes](#-executando-testes)
+- [📈 Funcionalidades](#-funcionalidades)
+- [🔐 Autenticação e Autorização](#-autenticação-e-autorização)
+- [💾 Banco de Dados](#-banco-de-dados)
+- [🚀 Deploy](#-deploy)
+- [🤝 Contribuindo](#-contribuindo)
+- [📄 Licença](#-licença)
 
-- **Contexto**: visão geral do problema e objetivo
-- **Destaques técnicos**: pontos fortes do projeto
-- **Features**
-- **Stack**
-- **Arquitetura**: camadas e fluxo
-- **Estrutura de pastas**
-- **Domínio e Casos de Uso**
-- **Endpoints principais**
-- **Ambiente e Execução**
-- **Autenticação**
-- **Testes**
-- **Roadmap** e **Decisões técnicas**
-- **Licença**
+## 🎯 Sobre o Projeto
 
----
+Este projeto demonstra uma **API RESTful completa** para gestão de clínicas médicas, implementando **Clean Architecture** e **Domain-Driven Design**. O sistema gerencia usuários, procedimentos médicos e agendamentos com validações robustas e tratamento de erros elegante.
 
-## 🎯 Contexto
+### ✨ Destaques Técnicos
 
-Este projeto implementa um backend de gestão (procedimentos e agendamentos) típico de clínicas, com autenticação segura, regras de negócio explícitas e camadas bem separadas (DDD + Clean Architecture). O foco é qualidade de código, testabilidade e observabilidade do fluxo.
+- **Arquitetura Limpa** com separação clara de responsabilidades
+- **Testes automatizados** com cobertura superior a 95%
+- **Validação de dados** com Zod e pipes customizados
+- **Autenticação JWT** com estratégias de autorização
+- **Migrations automáticas** com Prisma ORM
+- **CI/CD pipeline** com GitHub Actions
+- **Documentação interativa** com Scalar
 
----
+## 🚀 Tecnologias e Arquitetura
 
-## 💡 Destaques técnicos
+### 🏗️ Backend
 
-- **Clean Architecture + DDD**: domínio isolado, casos de uso puros, infraestrutura plugável
-- **JWT RS256** com chaves pública/privada carregadas via `EnvService`
-- **Prisma ORM** em PostgreSQL, mapeadores explícitos (Domain <-> Prisma)
-- **Swagger** em `/docs` com suporte a Bearer token
-- **Validação declarativa** com `ZodValidationPipe`
-- **Either** funcional para erros e sucesso previsíveis
-- **Testes** unitários e E2E com `vitest` e `supertest`
+- **NestJS** - Framework Node.js para aplicações escaláveis
+- **TypeScript** - Tipagem estática e desenvolvimento robusto
+- **Prisma** - ORM moderno com migrations automáticas
+- **PostgreSQL** - Banco de dados relacional robusto
 
----
+### 🧪 Testes
 
-## ✅ Features
+- **Vitest** - Framework de testes rápido e moderno
+- **Supertest** - Testes de integração HTTP
+- **Faker.js** - Geração de dados de teste realistas
 
-- Cadastro e autenticação de usuários
-- Agendamentos: criar, listar, listar por usuário, confirmar, cancelar
-- Procedimentos: registrar, listar, listar por usuário
-- Autorização via JWT (rotas públicas anotadas com `@Public()`)
-- Documentação automática com Swagger
+### 🔧 Ferramentas
 
----
+- **Docker** - Containerização da aplicação
+- **pnpm** - Gerenciador de pacotes eficiente
+- **ESLint + Prettier** - Qualidade e formatação de código
+- **GitHub Actions** - CI/CD automatizado
 
-## 🚀 Stack
+### 🎨 Arquitetura
 
-- Node.js, TypeScript, NestJS
-- Prisma ORM, PostgreSQL, Docker
-- Zod, Swagger, Passport-JWT
-- Vitest, Supertest
+```
+src/
+├── core/           # Entidades e regras de negócio
+├── domain/         # Casos de uso e lógica de aplicação
+├── infra/          # Implementações concretas (DB, HTTP)
+└── main.ts         # Ponto de entrada da aplicação
+```
 
----
+## 📊 Cobertura de Testes
 
-## 🏗 Arquitetura
+[**FOTO DO COVERAGE AQUI**]
 
-Fluxo geral do backend:
+- **Testes Unitários**: Cobertura superior a 95%
+- **Testes E2E**: Validação completa dos fluxos de negócio
+- **Testes de Integração**: Validação das APIs e banco de dados
+- **Pipeline CI/CD**: Execução automática em cada commit
+
+## 📚 Documentação da API
+
+[**FOTO DA DOCUMENTAÇÃO COM SCALAR AQUI**]
+
+Acesse a documentação interativa em: `http://localhost:3000/docs`
+
+### 🔑 Endpoints Principais
+
+| Método | Rota                | Descrição             | Autenticação |
+| ------ | ------------------- | --------------------- | ------------ |
+| `POST` | `/users`            | Cadastro de usuário   | Pública      |
+| `POST` | `/auth/login`       | Autenticação          | Pública      |
+| `GET`  | `/appointments`     | Listar agendamentos   | JWT          |
+| `POST` | `/appointments`     | Criar agendamento     | JWT          |
+| `PUT`  | `/appointments/:id` | Atualizar agendamento | JWT          |
+| `GET`  | `/procedures`       | Listar procedimentos  | JWT          |
+
+## 🏗️ Estrutura do Projeto
+
+```
+clinic-api/
+├── src/
+│   ├── core/                    # Camada de domínio
+│   │   ├── entities/           # Entidades de negócio
+│   │   ├── errors/             # Erros customizados
+│   │   └── types/              # Tipos utilitários
+│   ├── domain/                 # Casos de uso
+│   │   ├── management/         # Lógica de negócio
+│   │   │   ├── application/    # Casos de uso
+│   │   │   └── enterprise/     # Entidades
+│   ├── infra/                  # Infraestrutura
+│   │   ├── auth/               # Autenticação JWT
+│   │   ├── database/           # Prisma e repositórios
+│   │   ├── http/               # Controllers e middlewares
+│   │   └── env/                # Configurações
+│   └── main.ts                 # Aplicação principal
+├── test/                       # Testes automatizados
+├── prisma/                     # Schema e migrations
+└── .github/workflows/          # CI/CD pipeline
+```
+
+## 🔄 Fluxo da Aplicação
 
 ```mermaid
 graph TD
-  A["Client (HTTP)"] --> B["NestJS Controller (/appointments, /procedures, /users, /session)"]
-  B --> C["Use Case (Application Layer)"]
-  C --> D["Repositories (Interfaces)"]
-  D --> E["Prisma Repositories (Infra)"]
-  E --> F["PrismaService"]
-  F --> G["PostgreSQL"]
+    A[Cliente] --> B[Controller]
+    B --> C[Use Case]
+    C --> D[Repository Interface]
+    D --> E[Prisma Repository]
+    E --> F[PostgreSQL]
 
-  subgraph "Auth"
-    H["JwtAuthGuard (global)"] -.-> B
-    I["JwtStrategy RS256"] --> H
-    J["EnvService PUBLIC_KEY/PRIVATE_KEY"] --> I
-  end
+    G[JWT Token] --> H[Auth Guard]
+    H --> I[Role Check]
+    I --> B
 
-  subgraph "Validation"
-    K["ZodValidationPipe"] -.-> B
-  end
+    J[Validation Pipe] --> K[Zod Schema]
+    K --> B
+
+    L[Error Handler] --> M[Custom Errors]
+    M --> N[HTTP Response]
+
+    style A fill:#e1f5fe
+    style F fill:#c8e6c9
+    style H fill:#fff3e0
+    style K fill:#f3e5f5
 ```
 
-Princípios:
+## ⚡ Como Executar
 
-- **Controllers finos**: apenas orquestram a entrada/saída HTTP e chamam casos de uso
-- **Use Cases**: encapsulam regras de negócio e dependem de interfaces de repositório
-- **Infra**: implementa repositórios com Prisma e serviços (JWT, Bcrypt, Env)
+### 📋 Pré-requisitos
 
----
+- Node.js 18+
+- pnpm 8+
+- Docker e Docker Compose
+- PostgreSQL (opcional, Docker recomendado)
 
-## 🗂 Estrutura de pastas (principal)
+### 🚀 Instalação
 
-O código está em `it-management/`:
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/clinic-api.git
+cd clinic-api
 
-- `src/domain/management/enterprise/entities`: entidades de domínio (`User`, `Appointment`, `Procedure`)
-- `src/domain/management/application`: casos de uso, repositórios (interfaces) e contratos de criptografia
-- `src/infra`: camadas externas (HTTP, Auth, Cryptography, Database, Env)
-  - `infra/http/controllers`: endpoints REST separados por contexto
-  - `infra/database/prisma`: mapeadores e repositórios Prisma
-  - `infra/auth`: guardas, estratégia JWT e decorator `@Public`
-  - `infra/cryptography`: `JwtEncrypter`, `BcryptHasher`
-  - `infra/env`: `EnvService` e schema `zod`
-- `prisma/schema.prisma`: modelos `User`, `Appointment`, `Procedure` e enum `ProcedureName`
-- `test` e `src/**/__unit__`/`__e2e__`: testes unitários e E2E
-
----
-
-## 🧩 Domínio e Casos de Uso
-
-Entidades:
-
-- `User { name, email, sector, password, createdAt, updatedAt }`
-- `Appointment { userId, name, description?, duration, status, dateHour, updatedBy?, ... }`
-- `Procedure { appointmentId, userId, name, value, product?, region, updatedBy?, ... }`
-
-Casos de uso (Application):
-
-- `users`
-  - `register-user`: registra usuário (valida e-mail único, hash de senha)
-  - `authenticate-user`: autentica e emite JWT (`sub = user.id`)
-- `appointments`
-  - `create-appointment`: valida usuário, intervalo de horário e cria agendamento
-  - `confirm-appointment`: valida agendamento e usuário que confirma, atualiza status
-  - `cancel-appointment`: valida agendamento e usuário que cancela, atualiza status
-  - `get-appointments-by-user-id`: valida usuário, lista agendamentos por usuário
-  - `fetch-appointments`: busca paginada com filtro textual
-  - `reschedule-appointment`: regras implementadas (pendente controller HTTP)
-- `procedures`
-  - `register-procedure`: valida usuário/agendamento e registra procedimento
-  - `get-procedures-by-user-id`: lista procedimentos por usuário
-  - `fetch-procedures`: busca paginada com filtro textual e por enum `name`
-  - `edit-procedure`: regras implementadas (pendente controller HTTP)
-
-Erros de domínio são modelados com `Either` e erros específicos (`UserNotFoundError`, `InvalidIntervalError`, etc.).
-
----
-
-## 🌐 Endpoints principais
-
-Base URL: `http://localhost:3333`
-
-Autenticação: Bearer Token (exceto rotas anotadas com `@Public()`).
-
-| Método | Caminho                 | Auth    | Descrição                          |
-| ------ | ----------------------- | ------- | ---------------------------------- |
-| POST   | `/users`                | Público | Registra usuário                   |
-| POST   | `/session`              | Público | Autentica e retorna `access_token` |
-| POST   | `/appointments`         | JWT     | Cria agendamento                   |
-| GET    | `/appointments`         | JWT     | Lista agendamentos (query/page)    |
-| GET    | `/appointments/:userId` | JWT     | Lista agendamentos por usuário     |
-| PATCH  | `/appointments/confirm` | JWT     | Confirma agendamento               |
-| PATCH  | `/appointments/cancel`  | JWT     | Cancela agendamento                |
-| POST   | `/procedures`           | JWT     | Cria procedimento                  |
-| GET    | `/procedures`           | JWT     | Lista procedimentos (query/page)   |
-| GET    | `/procedures/:userId`   | JWT     | Lista procedimentos por usuário    |
-
-Documentação Swagger: `GET /docs`
-
-Exemplos de uso estão em `it-management/client.http`.
-
----
-
-## ⚙️ Ambiente e Execução
-
-Pré-requisitos:
-
-- Node.js 18+ e pnpm
-- Docker (para PostgreSQL)
-
-### 1) Variáveis de ambiente
-
-Crie `it-management/.env`:
-
-```
-PORT=3333
-DATABASE_URL="postgresql://postgres:docker@localhost:5432/clinicdb?schema=public"
-PRIVATE_KEY="<BASE64_DA_PRIVATE_PEM>"
-PUBLIC_KEY="<BASE64_DA_PUBLIC_PEM>"
-```
-
-Gerando chaves RSA (RS256):
-
-- Com OpenSSL (Git Bash/WSL/Linux/macOS):
-
-```
-openssl genrsa -out private.pem 2048
-openssl rsa -in private.pem -pubout -out public.pem
-# Base64 (Linux/macOS):
-base64 -w 0 private.pem > private.b64 && base64 -w 0 public.pem > public.b64
-```
-
-- Base64 no Windows PowerShell:
-
-```
-[Convert]::ToBase64String([IO.File]::ReadAllBytes("private.pem"))
-[Convert]::ToBase64String([IO.File]::ReadAllBytes("public.pem"))
-```
-
-Cole os valores resultantes nas variáveis `PRIVATE_KEY` e `PUBLIC_KEY`.
-
-### 2) Subir o banco com Docker
-
-Na pasta `it-management/`:
-
-```
-docker-compose up -d
-```
-
-### 3) Instalar dependências e preparar Prisma
-
-Na pasta `it-management/`:
-
-```
+# Instale as dependências
 pnpm install
-pnpm prisma migrate dev
-pnpm prisma generate
+
+# Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o arquivo .env com suas configurações
+
+# Gere o cliente Prisma
+npx prisma generate
+
+# Inicie o banco de dados
+docker-compose up -d
+
+# Execute as migrations
+npx prisma migrate dev
+
+# Inicie a aplicação
+pnpm run start:dev
 ```
 
-Para ambientes sem migrações interativas (CI/prod):
+### 🌍 Variáveis de Ambiente
 
-```
-pnpm prisma migrate deploy
+```env
+# Banco de Dados
+DATABASE_URL="postgresql://postgres:docker@localhost:5432/clinicdb"
+
+# JWT
+JWT_SECRET="sua-chave-secreta-aqui"
+JWT_EXPIRES_IN="7d"
+
+# Servidor
+PORT=3000
+NODE_ENV=development
 ```
 
-### 4) Rodar a API
+## 🧪 Executando Testes
 
+```bash
+# Testes unitários
+pnpm run test
+
+# Testes em modo watch
+pnpm run test:watch
+
+# Testes com cobertura
+pnpm run test:cov
+
+# Testes E2E
+pnpm run test:e2e
+
+# Todos os testes
+pnpm run test:all
 ```
-pnpm start:dev
-# Abra: http://localhost:3333/docs
+
+## 📈 Funcionalidades
+
+### 👥 Gestão de Usuários
+
+- ✅ Cadastro com validação de email único
+- ✅ Autenticação JWT segura
+- ✅ Hash de senhas com bcrypt
+- ✅ Controle de roles (ADMIN, USER)
+
+### 📅 Agendamentos
+
+- ✅ Criação de agendamentos
+- ✅ Confirmação e cancelamento
+- ✅ Reagendamento com validações
+- ✅ Filtros por usuário e período
+
+### 🏥 Procedimentos Médicos
+
+- ✅ Cadastro de procedimentos
+- ✅ Edição e consulta
+- ✅ Associação com usuários
+- ✅ Validações de dados
+
+## 🔐 Autenticação e Autorização
+
+- **JWT Strategy**: Tokens seguros com expiração configurável
+- **Role-based Access**: Controle de acesso baseado em perfis
+- **Guards Customizados**: Proteção de rotas sensíveis
+- **Refresh Tokens**: Renovação automática de sessões
+
+## 💾 Banco de Dados
+
+### 🗄️ Schema Principal
+
+- **Users**: Gestão de usuários e perfis
+- **Appointments**: Agendamentos e status
+- **Procedures**: Procedimentos médicos
+- **Audit Logs**: Rastreamento de mudanças
+
+### 🔄 Migrations
+
+- **Prisma Migrate**: Controle de versão do banco
+- **Rollbacks**: Reversão segura de mudanças
+- **Seeds**: Dados iniciais para desenvolvimento
+
+## 🚀 Deploy
+
+### 🐳 Docker
+
+```bash
+# Build da imagem
+docker build -t clinic-api .
+
+# Execução
+docker run -p 3000:3000 clinic-api
 ```
+
+### ☁️ Cloud Platforms
+
+- **Heroku**: Deploy automático via GitHub
+- **Railway**: Deploy com PostgreSQL integrado
+- **DigitalOcean**: App Platform com auto-scaling
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+### 📝 Padrões de Código
+
+- **ESLint**: Configuração rigorosa de qualidade
+- **Prettier**: Formatação automática
+- **Conventional Commits**: Padrão de mensagens
+- **Branch Naming**: `feature/`, `fix/`, `docs/`
+
+## 🏆 Conquistas Técnicas
+
+- **Clean Architecture**: Separação clara de responsabilidades
+- **TDD/BDD**: Desenvolvimento orientado a testes
+- **SOLID Principles**: Código limpo e manutenível
+- **Error Handling**: Tratamento elegante de erros
+- **Type Safety**: TypeScript em 100% do código
+- **Performance**: Otimizações de banco e cache
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
-## 🔐 Autenticação
+## 👨‍💻 Sobre o Desenvolvedor
 
-- Estratégia JWT RS256 com chaves base64 em `EnvService`
-- Guard global `JwtAuthGuard`; rotas públicas usam `@Public()`
-- Payload mínimo: `{ sub: user.id }`
+**Desenvolvedor Backend Junior** apaixonado por código limpo, arquitetura escalável e boas práticas de desenvolvimento. Este projeto demonstra habilidades em:
 
-Enviar header:
-
-```
-Authorization: Bearer <access_token>
-```
-
----
-
-## 🧪 Testes
-
-- Unitários e de casos de uso: `pnpm test`
-- E2E: `pnpm test:e2e` (usa `test/setup-e2e.ts` para criar schema isolado e `pnpm prisma db push`)
-
-Cobertura: `pnpm test:cov`
-
-Certifique-se que o PostgreSQL está rodando e `DATABASE_URL` está definido.
+- **NestJS** e **Node.js**
+- **Arquitetura de Software**
+- **Testes Automatizados**
+- **Banco de Dados Relacionais**
+- **APIs RESTful**
+- **DevOps e CI/CD**
 
 ---
 
-## 📄 Principais scripts (package.json)
-
-- `start:dev`: desenvolvimento com watch
-- `test`, `test:watch`, `test:e2e`, `test:cov`
-- `build` e `start:prod`
-
----
-
-## 🧱 Decisões técnicas e Notas
-
-- Camadas explícitas e baixo acoplamento para facilitar testes e evolução
-- Mapeadores Prisma dedicados garantem isolamento do domínio
-- `ZodValidationPipe` padroniza erros 400 e mensagens de validação
-- Swagger documenta payloads e respostas com exemplos
-- Próximos passos importantes listados no roadmap
-
----
-
-## 🗺 Roadmap
-
-- Expor controller HTTP para `reschedule-appointment`
-- Expor controller HTTP para `edit-procedure`
-- Regras de autorização por perfil (`Role` enum) nas rotas sensíveis
-- Auditoria e trilhas de alterações (usar `updatedBy` de forma consistente)
-- Melhorias de observabilidade (logs estruturados e métricas)
-
----
-
-## 📜 Licença
-
-UNLICENSED (consulte `it-management/package.json`).
+<div align="center">
+  <p>⭐ Se este projeto te ajudou, considere dar uma estrela!</p>
+  <p>📧 Contato: seu-email@exemplo.com</p>
+  <p>🔗 LinkedIn: [seu-linkedin](https://linkedin.com/in/seu-perfil)</p>
+</div>

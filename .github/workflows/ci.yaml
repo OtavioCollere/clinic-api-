@@ -16,45 +16,14 @@ jobs:
       PUBLIC_KEY : ${{ secrets.PUBLIC_KEY }}
       PRIVATE_KEY : ${{ secrets.PRIVATE_KEY }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Importing setup pipe
+        uses: ./.github/actions/setup-pipe
 
-      - name: Configure Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Prisma generate
-        run: npx prisma generate
+      - name: Importing setup database
+        uses: ./.github/actions/setup-db
 
       - name: Run Unit tests
         run: pnpm run test
-
-      - name: Check Docker
-        run: |
-          docker --version
-          docker compose version
-
-      - name: Start Postgres
-        run: docker compose up -d
-
-      - name: Wait for Postgres
-        run: |
-          until docker exec clinic-api pg_isready -U postgres -d clinicdb; do
-            echo "Waiting for Postgres to be ready..."
-            sleep 2
-          done
-
-      - name: Prisma migrate
-        run: npx prisma migrate dev --name ci
 
       - name: Run E2E tests
         run: pnpm run test:e2e
