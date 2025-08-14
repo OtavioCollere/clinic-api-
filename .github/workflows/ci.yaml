@@ -36,8 +36,13 @@ jobs:
       - name: Run Unit tests
         run: pnpm run test
 
+      - name: Check Docker
+        run: |
+          docker --version
+          docker compose version
+
       - name: Start Postgres
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for Postgres
         run: |
@@ -54,4 +59,4 @@ jobs:
 
       - name: Stop Postgres
         if: always()
-        run: docker-compose down
+        run: docker compose down
