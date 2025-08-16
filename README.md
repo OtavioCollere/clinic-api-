@@ -247,13 +247,6 @@ pnpm run test:e2e
 - **Rollbacks**: Reversão segura de mudanças
 
 
-## 🏆 Conquistas Técnicas
-
-- **Clean Architecture**: Separação clara de responsabilidades
-- **SOLID Principles**: Código limpo e manutenível
-- **Error Handling**: Tratamento de erros
-- **Type Safety**: TypeScript em 100% do código
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
