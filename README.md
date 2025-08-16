@@ -84,6 +84,7 @@ src/
 | ![Doc 3](https://github.com/user-attachments/assets/5e5ccd18-a7d9-441f-b9e5-499c11cc44ca) | ![Doc 4](https://github.com/user-attachments/assets/22e11e5e-4985-44eb-b814-a0d068a91c2f) |
 
 
+
 ## 📌 Rotas da API
 
 | Método | Rota | Descrição | Autenticação |
